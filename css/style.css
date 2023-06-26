@@ -32,6 +32,32 @@
   font-family: "Poppins", sans-serif;
 }
 
+.buscador {
+  margin: 18px;
+}
+.buscador input {
+  font-size: 22px;
+  width: 50%;
+}
+.buscador button {
+  font-size: 22px;
+}
+
+.nav {
+  list-style: none;
+}
+.nav li {
+  margin: 4px;
+  font-family: "Raleway", sans-serif;
+}
+.nav li a {
+  text-decoration: none;
+  font-size: 24px;
+}
+.nav li:hover {
+  background-color: #138AF2;
+}
+
 #catalogo {
   flex-wrap: wrap;
 }

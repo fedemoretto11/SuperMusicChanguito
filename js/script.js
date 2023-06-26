@@ -1,31 +1,56 @@
-import { productos } from "./productos.js";
+import { obtenerProductos, renderizar} from './productos.js';
 import { Shop } from './Shop.js';
 
 
 // Creacion de catalogo
-
+const botonesCategorias = document.querySelectorAll(".nav-button_link");
 const catalogo = document.getElementById("catalogo");
-productos.forEach(producto => {
-  // console.log(producto);
-  let productoCatalogo = `
-  <div class="catalogo-cards center-column">
-    <img src="${producto.imagen}" alt="${producto.altImagen}">
-    <h2>${producto.nombre}</h2>
-    <p>${producto.descripcion}</p>
-    <p>Precio: $ ${producto.precio}</p>
-    <p class="imagen-no-real">La imagen puede no corresponder al producto real.</p>
-    <div class="center">
-      <button class="agregarCarrito" value="${producto.id}">Agregar al Carrito</button>
-      <button class="agregarCantidad" value="${producto.id}">+</button>
-      <button class="disminuirCantidad" value="${producto.id}">-</button>
-      <button class="borrarProducto" value="${producto.id}">Borrar</button>
-    </div>
-  </div>
-  `
-  catalogo.insertAdjacentHTML("beforeend", productoCatalogo);
-  
-});
 
+
+// Mostra catalogo
+
+const catalogoProductos = await obtenerProductos();
+// console.log(catalogoProductos);
+
+function actualizarCatalogo(){
+  catalogo.innerHTML = "";
+  catalogoProductos.forEach(producto => {
+    let productoCatalogo = renderizar(producto);
+    catalogo.insertAdjacentHTML("beforeend", productoCatalogo);
+    
+  });
+}
+actualizarCatalogo()
+
+
+  // Mostrare disitntas categorias del catalogo
+
+botonesCategorias.forEach(boton => {
+  boton.addEventListener("click", (e) => {
+    e.preventDefault();   
+    botonesCategorias.forEach(b => {
+      b.classList.remove("active");
+    })
+    boton.classList.add("active");
+
+
+    if (boton.classList.contains("active")) {
+      catalogo.innerHTML = "";
+      let categoria = boton.dataset.category;
+      console.log(`Categoria de MELI: ${categoria}`)
+      obtenerProductos(categoria)
+        .then(catalogoProductos => {
+          catalogoProductos.forEach(producto => {
+            let productoCatalogo = renderizar(producto);
+            catalogo.insertAdjacentHTML("beforeend", productoCatalogo);
+          })
+        })
+
+
+    }
+    
+  })
+})
 
 
 // Llamado de botones
@@ -34,27 +59,27 @@ const botonAgregarCarrito = document.querySelectorAll(".agregarCarrito");
 const botonAgregarCantidad = document.querySelectorAll(".agregarCantidad");
 const botonDisminuirCantidad = document.querySelectorAll(".disminuirCantidad");
 const botonBorrarProducto = document.querySelectorAll(".borrarProducto");
-
-
 const botonCarrito = document.getElementById("carrito");
 const botonBorrarCarrito = document.getElementById("borrar-carrito");
-const botonBuscarProducto = document.getElementById("buscar-producto");
+
 
 
 // Llamdo HTML
 
+const buscadorInput = document.getElementById("buscador-input_buscar");
 const precioFinalImpreso = document.getElementById("precio-final");
 const precioSubtotalImpreso = document.getElementById("subtotal");
-// const moneda = document.querySelectorAll(".moneda");
-
 const cantidadImpresa = document.getElementById("cantidad");
 
+
 // Creacion del Shop
+
 const tienda = new Shop();
 
 
 // Funciones
 
+// Calculo de IVA
 function actualizarPrecioCantidad(){
   tienda.calculoIva();
   precioSubtotalImpreso.innerHTML = tienda.precioSubtotal;
@@ -64,19 +89,25 @@ function actualizarPrecioCantidad(){
 
 //Eventos
 
+// Agregar al carrito
+
 botonAgregarCarrito.forEach(boton => {
-  boton.addEventListener("click", () => {
-    let producto = productos.find(producto => producto.id == boton.value);
+  boton.addEventListener("click", (e) => {
+    e.preventDefault();
+    let producto = catalogoProductos.find(producto => producto.id == boton.value);
     tienda.agregarAlCarrito(producto);
     actualizarPrecioCantidad();
+
 
   })
 })
 
 
+// Aumentar cantidad
+
 botonAgregarCantidad.forEach(boton => {
   boton.addEventListener("click", () => {
-    let producto = productos.find(producto => producto.id == boton.value);
+    let producto = catalogoProductos.find(producto => producto.id == boton.value);
     tienda.aumentarCantidad(producto);
     actualizarPrecioCantidad();
 
@@ -84,9 +115,11 @@ botonAgregarCantidad.forEach(boton => {
 })
 
 
+// Disminuir cantidad
+
 botonDisminuirCantidad.forEach(boton => {
   boton.addEventListener("click", () => {
-    let producto = productos.find(producto => producto.id == boton.value);
+    let producto = catalogoProductos.find(producto => producto.id == boton.value);
     tienda.disminuirCantidad(producto);
     actualizarPrecioCantidad();
 
@@ -94,9 +127,11 @@ botonDisminuirCantidad.forEach(boton => {
 })
 
 
+// Borrar producto
+
 botonBorrarProducto.forEach(boton => {
   boton.addEventListener("click", () => {
-    let producto = productos.find(producto => producto.id == boton.value);
+    let producto = catalogoProductos.find(producto => producto.id == boton.value);
     tienda.eliminarProducto(producto);
     actualizarPrecioCantidad();
 
@@ -104,9 +139,12 @@ botonBorrarProducto.forEach(boton => {
 })
 
 
+// Mostrar carrito
+
 botonCarrito.addEventListener("click", () => {
   if (tienda.carrito.length > 0) {
     console.table(tienda.carrito);
+    // console.log(catalogoProductos);
   } else {
     console.log("Carrito Vacio")
   }
@@ -114,15 +152,29 @@ botonCarrito.addEventListener("click", () => {
 })
 
 
+// Borrar carrito
+
 botonBorrarCarrito.addEventListener("click", () => {
   tienda.vaciarCarrito();
   actualizarPrecioCantidad();
   console.log("Carrito borrado")
 })
 
-botonBuscarProducto.addEventListener("click", () => {
-  tienda.buscarProducto();
+
+// Buscador de productos
+
+buscadorInput.addEventListener("keyup", () => {
+  let buscar = buscadorInput.value;
+  let resultados = tienda.buscarProducto(buscar, catalogoProductos);
+  catalogo.innerHTML = ''
+  resultados.forEach(resultado => {
+    let resRend = renderizar(resultado);
+    catalogo.insertAdjacentHTML("beforeend", resRend);
+  })
 })
+
+
+
 
 
 

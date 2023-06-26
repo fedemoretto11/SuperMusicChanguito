@@ -9,19 +9,38 @@
   <link rel="shortcut icon" href="img/logo.webp" type="image/x-icon">
 </head>
 <body>
-
-  <main class="center-column">
+  <header>
     <div class="center titulo">
-      <img src="./img/logo.webp" alt="">
+      <img src="./img/logo.webp" alt="Logo Super Music Changuito">
       <h1>Super Music Changuito</h1>
     </div>
+    <form action="" class="buscador center">
+      <label for="buscador-input_buscar">Buscar</label>
+      <input type="text" id="buscador-input_buscar">
+    </form>
+    <nav>
+      <ul class="center nav">
+        <li class="nav-button">
+          <a class="nav-button_link active" data-category="MLA417638" href="">Guitarras</a>
+        </li>
+        <li class="nav-button">
+          <a class="nav-button_link" data-category="MLA2100" href="">Pianos</a>
+        </li> 
+        <li class="nav-button">
+          <a class="nav-button_link" data-category="MLA3004" href="">Baterias</a>
+        </li>
+      </ul>
+    </nav>
+    
+  </header>
+
+  <main class="center-column">
 
     <section id="catalogo" class="center">
       
     </section>
 
     <section id="botones-carrito-gral">
-      <button id="buscar-producto">Buscar Producto</button>
       <button id="carrito">CARRITO</button>
       <button id="borrar-carrito">Borrar Carrito</button>
       <p>Subtotal: <b><span class="moneda">$</span> <span id="subtotal">0</span></b></p>
