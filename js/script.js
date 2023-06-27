@@ -2,6 +2,8 @@ import { obtenerProductos, renderizar} from './productos.js';
 import { Shop } from './Shop.js';
 
 
+
+
 // Creacion de catalogo
 const botonesCategorias = document.querySelectorAll(".nav-button_link");
 const catalogo = document.getElementById("catalogo");
@@ -9,7 +11,7 @@ const catalogo = document.getElementById("catalogo");
 
 // Mostra catalogo
 
-const catalogoProductos = await obtenerProductos();
+let catalogoProductos = await obtenerProductos();
 // console.log(catalogoProductos);
 
 function actualizarCatalogo(){
@@ -37,32 +39,32 @@ botonesCategorias.forEach(boton => {
     if (boton.classList.contains("active")) {
       catalogo.innerHTML = "";
       let categoria = boton.dataset.category;
-      console.log(`Categoria de MELI: ${categoria}`)
       obtenerProductos(categoria)
-        .then(catalogoProductos => {
-          catalogoProductos.forEach(producto => {
-            let productoCatalogo = renderizar(producto);
-            catalogo.insertAdjacentHTML("beforeend", productoCatalogo);
+        .then(data => {
+          catalogoProductos = data;
+          console.log(catalogoProductos)
+          actualizarCatalogo();
+          botonAgregarCarrito.forEach (boton => {
+            console.log(boton)
           })
-        })
-
-
+      })
     }
-    
   })
 })
-
 
 // Llamado de botones
 
 const botonAgregarCarrito = document.querySelectorAll(".agregarCarrito");
+botonAgregarCarrito.forEach (boton => {
+  console.log(boton)
+})
+
 const botonAgregarCantidad = document.querySelectorAll(".agregarCantidad");
 const botonDisminuirCantidad = document.querySelectorAll(".disminuirCantidad");
 const botonBorrarProducto = document.querySelectorAll(".borrarProducto");
+
 const botonCarrito = document.getElementById("carrito");
 const botonBorrarCarrito = document.getElementById("borrar-carrito");
-
-
 
 // Llamdo HTML
 
@@ -71,21 +73,35 @@ const precioFinalImpreso = document.getElementById("precio-final");
 const precioSubtotalImpreso = document.getElementById("subtotal");
 const cantidadImpresa = document.getElementById("cantidad");
 
-
 // Creacion del Shop
 
 const tienda = new Shop();
+
+
+
 
 
 // Funciones
 
 // Calculo de IVA
 function actualizarPrecioCantidad(){
-  tienda.calculoIva();
-  precioSubtotalImpreso.innerHTML = tienda.precioSubtotal;
-  cantidadImpresa.innerHTML = tienda.carrito.length;
-  precioFinalImpreso.innerHTML = tienda.precioFinal;
+  if(tienda.carrito.length == 0) {
+    precioSubtotalImpreso.innerHTML = 0;
+    cantidadImpresa.innerHTML = 0;
+    precioFinalImpreso.innerHTML = 0;
+  }
+  for (let producto of tienda.carrito) {
+    tienda.calculoIva();
+    precioSubtotalImpreso.innerHTML = tienda.precioSubtotal;
+    cantidadImpresa.innerHTML = tienda.cantidadProductos;
+    precioFinalImpreso.innerHTML = tienda.precioFinal;
+
+    console.log(tienda.precioSubtotal)
+    console.log(producto.cantidad)
+
+  }
 }
+
 
 //Eventos
 
@@ -93,12 +109,11 @@ function actualizarPrecioCantidad(){
 
 botonAgregarCarrito.forEach(boton => {
   boton.addEventListener("click", (e) => {
+    console.log(boton.value)
     e.preventDefault();
     let producto = catalogoProductos.find(producto => producto.id == boton.value);
     tienda.agregarAlCarrito(producto);
     actualizarPrecioCantidad();
-
-
   })
 })
 
@@ -144,9 +159,12 @@ botonBorrarProducto.forEach(boton => {
 botonCarrito.addEventListener("click", () => {
   if (tienda.carrito.length > 0) {
     console.table(tienda.carrito);
+    console.log(tienda.carrito);
+    
     // console.log(catalogoProductos);
   } else {
     console.log("Carrito Vacio")
+    console.log(tienda.carrito);
   }
 
 })
@@ -172,6 +190,8 @@ buscadorInput.addEventListener("keyup", () => {
     catalogo.insertAdjacentHTML("beforeend", resRend);
   })
 })
+
+
 
 
 

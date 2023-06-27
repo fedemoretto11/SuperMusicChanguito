@@ -26,6 +26,7 @@ export class Shop {
       productoNuevo.cantidad = 1;
       productoNuevo.subtotal = productoNuevo.price * productoNuevo.cantidad;
       this.calculoPrecioSubtotal();
+      this.calculoCantidad()
       console.log(productoNuevo.subtotal)
       console.log(productoNuevo.cantidad)
     }
@@ -41,8 +42,8 @@ export class Shop {
       productoNuevo.cantidad++;
       productoNuevo.subtotal = productoNuevo.price * productoNuevo.cantidad;
       productoNuevo.installments.quantity--;
-      
-
+      this.calculoCantidad()
+      this.calculoPrecioSubtotal()
     } else {
       console.log("El producto no esta en el carrito")
     }
@@ -57,8 +58,10 @@ export class Shop {
       console.log("Producto sin stock");
     } else if (this.carrito.includes(productoNuevo)) {
       productoNuevo.cantidad--;
-      productoNuevo.subtotal = productoNuevo.precio * productoNuevo.cantidad;
+      productoNuevo.subtotal = productoNuevo.price * productoNuevo.cantidad;
       productoNuevo.installments.quantity++;
+      this.calculoCantidad()
+      this.calculoPrecioSubtotal()
       if(productoNuevo.cantidad == 0) {
         console.log("Producto eliminado del carrito");
         this.carrito.splice(indice,1);
@@ -76,6 +79,8 @@ export class Shop {
     let indice = this.carrito.indexOf(productoEliminar);
     if (this.carrito.includes(productoEliminar)) {
       this.carrito.splice(indice,1);
+      this.calculoCantidad()
+      this.calculoPrecioSubtotal()
       console.log(`El producto ${nombre} ha sido eliminado correctamente`)
     } else {
       console.log("El producto no se encuentra en el carrito")
@@ -102,12 +107,22 @@ export class Shop {
   }
 
 
-    // Calculo subtotal
+  // Calculo subtotal
   
   calculoPrecioSubtotal() {
     this.precioSubtotal = 0;
     for(let producto of this.carrito){
       this.precioSubtotal += producto.subtotal;
+    }
+  }
+
+
+  // Calculo cantidad total
+
+  calculoCantidad() {
+    this.cantidadProductos = 0;
+    for(let producto of this.carrito){
+      this.cantidadProductos += producto.cantidad;
     }
   }
 
