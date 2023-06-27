@@ -1,4 +1,4 @@
-import * as  producto  from './productos.js'
+// import * as  producto  from './productos.js'
 // const carrito = document.querySelector(".offset-carrito");
 
 export class Shop {
@@ -16,10 +16,16 @@ export class Shop {
   // Agregar al Carrito, chequea si existe en carrito, si tiene stock y luego agrega
 
   agregarAlCarrito(productoNuevo) {
+
+    // Cheque si existe en carrito
     if (this.carrito.includes(productoNuevo)) {
       console.log("El producto ya existe en el carrito")
+
+    // Chequea si el producto tiene stock
     } else if (productoNuevo.installments.quantity <= 0) {
       console.log("Producto sin stock")
+
+    // Agrega al carrito
     } else {
       this.carrito.push(productoNuevo);
       productoNuevo.installments.quantity--;
@@ -27,8 +33,8 @@ export class Shop {
       productoNuevo.subtotal = productoNuevo.price * productoNuevo.cantidad;
       this.calculoPrecioSubtotal();
       this.calculoCantidad()
-      console.log(productoNuevo.subtotal)
-      console.log(productoNuevo.cantidad)
+      // console.log(productoNuevo.subtotal)
+      // console.log(productoNuevo.cantidad)
     }
   }
 
@@ -36,14 +42,20 @@ export class Shop {
   //Aumenta cantidad en carrito en 1
 
   aumentarCantidad(productoNuevo){
+
+    // Cheque si tiene Stock
     if (productoNuevo.installments.quantity <= 0) {
       console.log("Producto sin stock");
+
+    // Chequea que el producto este y suma una unidad al carrito
     } else if (this.carrito.includes(productoNuevo)) {
       productoNuevo.cantidad++;
       productoNuevo.subtotal = productoNuevo.price * productoNuevo.cantidad;
       productoNuevo.installments.quantity--;
       this.calculoCantidad()
       this.calculoPrecioSubtotal()
+
+    // Si no esta en carrito avisa que no esta
     } else {
       console.log("El producto no esta en el carrito")
     }
@@ -54,9 +66,7 @@ export class Shop {
 
   disminuirCantidad(productoNuevo){
     let indice = this.carrito.indexOf(productoNuevo);
-    if (productoNuevo.installments.quantity <= 0) {
-      console.log("Producto sin stock");
-    } else if (this.carrito.includes(productoNuevo)) {
+    if (this.carrito.includes(productoNuevo)) {
       productoNuevo.cantidad--;
       productoNuevo.subtotal = productoNuevo.price * productoNuevo.cantidad;
       productoNuevo.installments.quantity++;
