@@ -4,20 +4,36 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Federico Moretto ||  PreeEntrega 2</title>
-  <link rel="stylesheet" href="./css/style.css">
+  <meta name="description" content="Carrito de compras diseñado especialmente para el curso de JavaScript de CoderHouse. Integración de la API de MercadoLibre, podrás crear una experiencia de compra fluida y segura para tus usuarios. Desarrollado por Federico Moretto.">
+
+  <title>Federico Moretto ||  Pre Entrega 3</title>
+
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+
   <link rel="shortcut icon" href="img/logo.webp" type="image/x-icon">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
   <header>
-    <div class="center titulo">
-      <img src="./img/logo.webp" alt="Logo Super Music Changuito">
-      <h1>Super Music Changuito</h1>
+    <div class="center  container-fluid">
+      <div class="row header-top">
+        <div class="center header-top_titulo col-md-5">
+          <img src="./img/logo.webp" alt="Logo Super Music Changuito">
+          <h1>Super Music Changuito</h1>
+
+        </div>
+        <form action="" class="header-top_buscador center col-md-6">
+          <label for="buscador-input_buscar"></label>
+          <input type="text" id="buscador-input_buscar" placeholder="Ingrese un articulo a buscar">
+        </form>
+      </div>
     </div>
-    <form action="" class="buscador center">
-      <label for="buscador-input_buscar"></label>
-      <input type="text" id="buscador-input_buscar" placeholder="Ingrese un articulo a buscar">
-    </form>
+
+
+
     <nav>
       <ul class="center nav">
         <li class="nav-button">
@@ -34,12 +50,15 @@
     
   </header>
 
-  <main class="center-column">
-
+  <main class="center-column main">
     <section id="catalogo" class="center">
       
     </section>
-
+    <section class="paginas center">
+      <button class="paginas-botones" value="10">10</button>
+      <button class="paginas-botones" value="15">15</button>
+      <button class="paginas-botones" value="20">20</button>
+    </section>
     <section id="botones-carrito-gral">
       <button id="carrito">CARRITO</button>
       <button id="borrar-carrito">Borrar Carrito</button>
@@ -47,9 +66,7 @@
       <p>Subtotal: <b><span class="moneda">$</span> <span id="subtotal">0</span></b></p>
       <p>Cantidad de productos: <b><span id="cantidad">0</span></b></p>
       <p>Precio Final: <b><span class="moneda">$</span> <span id="precio-final">0</span></b></p>
-
     </section>
-
   </main>
 
   <script type="module" src="./js/script.js"></script>

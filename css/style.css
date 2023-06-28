@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -21,29 +25,44 @@
 }
 
 header {
-  background-color: #138AF2;
+  background-color: #022859;
+  width: 100vw;
 }
 
-.titulo {
-  padding-top: 6px;
+.header-top {
+  width: 100vw;
+  padding: 16px;
   gap: 16px;
 }
-.titulo img {
+.header-top .header-top_titulo {
+  gap: 16px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.header-top .header-top_titulo img {
   height: 60px;
   border-radius: 5px;
 }
-.titulo h1 {
+.header-top .header-top_titulo h1 {
+  color: #138AF2;
   font-size: 42px;
   font-family: "Poppins", sans-serif;
+  margin: 0;
 }
-
-.buscador {
-  margin: 18px;
-}
-.buscador input {
+.header-top .header-top_buscador input {
+  font-family: "Raleway", sans-serif;
   font-size: 22px;
-  width: 50%;
+  width: 80%;
   padding: 6px;
+  border: none;
+  border-radius: 5px;
+  color: #022859;
+  background-color: #B6C5F2;
+}
+.header-top .header-top_buscador input:focus {
+  outline: none;
+  border: none;
 }
 
 .nav {
@@ -53,12 +72,14 @@ header {
   padding: 10px;
   font-family: "Raleway", sans-serif;
   text-decoration: none;
-  transition: 0.5s;
+  border-radius: 10px 10px 0 0;
+  transition: 0.3s;
 }
 .nav li a {
+  color: #138AF2;
   text-decoration: none;
   font-size: 24px;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 .nav li:has(.active) {
   background-color: #B6C5F2 !important;
@@ -70,47 +91,78 @@ header {
   color: #B6C5F2;
 }
 
+.main {
+  background-color: #B6C5F2;
+  padding-top: 30px;
+  width: 100vw;
+}
+
 #catalogo {
   flex-wrap: wrap;
-  background-color: #B6C5F2;
+  min-height: 100vh;
+  align-items: flex-start;
 }
 
 .catalogo-cards {
-  height: 350px;
-  width: 400px;
+  justify-content: space-between;
+  height: 420px;
+  width: 420px;
   margin: 5px;
-  padding: 5px;
-  gap: 10px;
+  padding: 15px;
   text-align: center;
   font-family: "Poppins", sans-serif;
   border: 2px solid #022859;
-  border-radius: 5px;
-  background-color: white;
+  border-radius: 10px;
+  background-color: #FFFFFF;
 }
 .catalogo-cards img {
   height: 100px;
-  width: 200px;
+  width: 100px;
   -o-object-fit: contain;
      object-fit: contain;
+}
+.catalogo-cards h2 {
+  font-size: 1.6rem;
 }
 .catalogo-cards .catalogo-cards_descripcion {
   height: 70px;
 }
-.catalogo-cards div {
+.catalogo-cards .catalogo-cards_buttons {
+  bottom: 0;
   gap: 6px;
   width: 100%;
 }
-.catalogo-cards div button {
+.catalogo-cards .catalogo-cards_buttons button {
+  color: #022859;
   font-family: "Poppins", sans-serif;
+  background-color: #B6C5F2;
   padding: 3px;
   font-size: 15px;
+  padding: 6px;
+  border: 1px solid #022859;
+  border-radius: 5px;
 }
 
-.imagen-no-real {
-  font-size: 12px;
+.paginas .paginas-botones {
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  margin: 0;
+  border: solid 0.5px #022859;
+}
+
+.paginas > :first-child {
+  border-radius: 10px 0px 0px 10px;
+  border-right: none;
+}
+
+.paginas > :last-child {
+  border-radius: 0px 10px 10px 0px;
+  border-left: none;
 }
 
 #botones-carrito-gral {
+  margin-top: 20px;
   width: 100vw;
   text-align: center;
   font-size: 24px;
@@ -124,13 +176,15 @@ header {
   padding: 6px;
   background-color: #B6C5F2;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 #botones-carrito-gral button:hover {
   background-color: #03258C;
   color: #B6C5F2;
 }
 #botones-carrito-gral p {
-  padding: 10px;
+  margin-bottom: 0;
+  padding: 5px;
 }
 
 #carrito {
