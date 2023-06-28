@@ -1,6 +1,6 @@
 // Funcion que obtiene la informacion de la API de MELI
 
-export async function obtenerProductos(categoria="MLA417638", limite="4") {
+export async function obtenerProductos(categoria="MLA417638", limite="20") {
   try {
     const result = await fetch(`https://api.mercadolibre.com/sites/MLA/search?category=${categoria}&limit=${limite}`);
     const productos = await result.json();
@@ -18,7 +18,7 @@ function card({id,imagen, altImagen, nombre,descripcion,cantidadDisponible, prec
     <div class="catalogo-cards center-column">
       <img src="${imagen}" alt="${altImagen}">
       <h2>${nombre}</h2>
-      <p>${descripcion}</p>
+      <p class="catalogo-cards_descripcion">${descripcion}</p>
       <p>Stock: ${cantidadDisponible}</p>
       <p>Precio: ${moneda} ${precio}</p>
       <div class="center">

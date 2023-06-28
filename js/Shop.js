@@ -3,7 +3,8 @@
 
 export class Shop {
   constructor(){
-    this.carrito = [];
+    let carrito = JSON.parse(localStorage.getItem("carrito"));
+    this.carrito = carrito || [];
     this.precioSubtotal = 0;
     this.precioFinal = 0;
     this.cantidadProductos = 0;
@@ -33,6 +34,7 @@ export class Shop {
       productoNuevo.subtotal = productoNuevo.price * productoNuevo.cantidad;
       this.calculoPrecioSubtotal();
       this.calculoCantidad()
+      localStorage.setItem("carrito", JSON.stringify(this.carrito));
       // console.log(productoNuevo.subtotal)
       // console.log(productoNuevo.cantidad)
     }
@@ -54,6 +56,7 @@ export class Shop {
       productoNuevo.installments.quantity--;
       this.calculoCantidad()
       this.calculoPrecioSubtotal()
+      localStorage.setItem("carrito", JSON.stringify(this.carrito));
 
     // Si no esta en carrito avisa que no esta
     } else {
@@ -76,6 +79,7 @@ export class Shop {
         console.log("Producto eliminado del carrito");
         this.carrito.splice(indice,1);
       }
+      localStorage.setItem("carrito", JSON.stringify(this.carrito));
     } else {
       console.log("El producto no esta en el carrito")
     }
@@ -92,6 +96,7 @@ export class Shop {
       this.calculoCantidad()
       this.calculoPrecioSubtotal()
       console.log(`El producto ${nombre} ha sido eliminado correctamente`)
+      localStorage.setItem("carrito", JSON.stringify(this.carrito));
     } else {
       console.log("El producto no se encuentra en el carrito")
     }
@@ -114,6 +119,7 @@ export class Shop {
     this.carrito = [];
     this.precioSubtotal = 0;
     this.cantidadProductos = 0;
+    localStorage.setItem("carrito", JSON.stringify(this.carrito));
   }
 
 

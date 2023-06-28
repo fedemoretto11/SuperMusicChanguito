@@ -52,6 +52,7 @@ async function actualizarCatalogo(){
   });
   agregarEventListeners();
 }
+
 await actualizarCatalogo()
 
 
@@ -83,12 +84,10 @@ await actualizarCatalogo()
 
   //Eventos
 function agregarEventListeners(){
-  // Agregar al carrito
 
+  // Agregar al carrito
   botonAgregarCarrito.forEach(boton => {
-    boton.addEventListener("click", (e) => {
-      e.preventDefault();
-      console.log(boton.value)
+    boton.addEventListener("click", () => {
       let producto = catalogoProductos.find(producto => producto.id == boton.value);
       tienda.agregarAlCarrito(producto);
       actualizarCatalogo();
@@ -97,7 +96,6 @@ function agregarEventListeners(){
   })
 
   // Aumentar cantidad
-
   botonAgregarCantidad.forEach(boton => {
     boton.addEventListener("click", () => {
       let producto = catalogoProductos.find(producto => producto.id == boton.value);
@@ -110,7 +108,6 @@ function agregarEventListeners(){
 
 
   // Disminuir cantidad
-
   botonDisminuirCantidad.forEach(boton => {
     boton.addEventListener("click", () => {
       let producto = catalogoProductos.find(producto => producto.id == boton.value);
@@ -123,7 +120,6 @@ function agregarEventListeners(){
 
 
   // Borrar producto
-
   botonBorrarProducto.forEach(boton => {
     boton.addEventListener("click", () => {
       let producto = catalogoProductos.find(producto => producto.id == boton.value);

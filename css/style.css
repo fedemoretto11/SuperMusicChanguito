@@ -4,6 +4,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .center {
@@ -19,8 +20,12 @@
   flex-direction: column;
 }
 
+header {
+  background-color: #138AF2;
+}
+
 .titulo {
-  margin-top: 6px;
+  padding-top: 6px;
   gap: 16px;
 }
 .titulo img {
@@ -38,36 +43,49 @@
 .buscador input {
   font-size: 22px;
   width: 50%;
-}
-.buscador button {
-  font-size: 22px;
+  padding: 6px;
 }
 
 .nav {
   list-style: none;
 }
 .nav li {
-  margin: 4px;
+  padding: 10px;
   font-family: "Raleway", sans-serif;
+  text-decoration: none;
+  transition: 0.5s;
 }
 .nav li a {
   text-decoration: none;
   font-size: 24px;
+  transition: 0.5s;
+}
+.nav li:has(.active) {
+  background-color: #B6C5F2 !important;
 }
 .nav li:hover {
-  background-color: #138AF2;
+  background-color: #022859;
+}
+.nav li:hover a {
+  color: #B6C5F2;
 }
 
 #catalogo {
   flex-wrap: wrap;
+  background-color: #B6C5F2;
 }
 
 .catalogo-cards {
   height: 350px;
   width: 400px;
+  margin: 5px;
+  padding: 5px;
   gap: 10px;
   text-align: center;
   font-family: "Poppins", sans-serif;
+  border: 2px solid #022859;
+  border-radius: 5px;
+  background-color: white;
 }
 .catalogo-cards img {
   height: 100px;
@@ -75,8 +93,12 @@
   -o-object-fit: contain;
      object-fit: contain;
 }
+.catalogo-cards .catalogo-cards_descripcion {
+  height: 70px;
+}
 .catalogo-cards div {
   gap: 6px;
+  width: 100%;
 }
 .catalogo-cards div button {
   font-family: "Poppins", sans-serif;
@@ -89,9 +111,11 @@
 }
 
 #botones-carrito-gral {
+  width: 100vw;
   text-align: center;
   font-size: 24px;
   font-family: "Poppins", sans-serif;
+  background-color: #B6C5F2;
 }
 #botones-carrito-gral button {
   border-radius: 5px;
