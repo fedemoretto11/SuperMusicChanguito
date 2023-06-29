@@ -145,6 +145,9 @@ header {
   border-radius: 5px;
 }
 
+.paginas {
+  margin: 20px;
+}
 .paginas .paginas-botones {
   height: 50px;
   width: 50px;
@@ -276,10 +279,127 @@ header {
   color: #000000;
 }
 
+#footer {
+  width: 100vw;
+  height: 100px;
+  background-color: #022859;
+}
+#footer p {
+  color: #FFFFFF;
+}
+
 @media screen and (max-width: 1200px) {
+  #catalogo {
+    margin-top: 270px;
+  }
   #carrito {
     margin-top: 209px;
     width: 100%;
     height: calc(100vh - 209px);
+  }
+}
+@media screen and (max-width: 460px) {
+  .header-top .header-top_titulo h1 {
+    font-size: 22px !important;
+  }
+  #catalogo {
+    margin-top: 180px;
+  }
+  #carrito {
+    margin-top: 185px;
+    width: 100%;
+    height: calc(100vh - 185px);
+  }
+  .carrito-bottom_datos {
+    justify-content: center;
+  }
+  .carrito-bottom_datos p {
+    text-align: center;
+  }
+  .carrito-bottom_botones {
+    justify-content: center;
+  }
+  #buscador-input_buscar {
+    padding: 6px;
+    font-size: 14px;
+  }
+  #buscador-input_buscar::-moz-placeholder {
+    font-size: 14px;
+  }
+  #buscador-input_buscar::placeholder {
+    font-size: 14px;
+  }
+  .nav {
+    list-style: none;
+  }
+  .nav li {
+    padding: 10px;
+    font-family: "Raleway", sans-serif;
+    text-decoration: none;
+    border-radius: 10px 10px 0 0;
+    transition: 0.3s;
+  }
+  .nav li a {
+    color: #138AF2;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+  .catalogo-cards {
+    height: 330px;
+    width: 250px;
+    padding: 6px;
+  }
+  .catalogo-cards img {
+    height: 60px;
+    width: 60px;
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+  .catalogo-cards h2 {
+    font-size: 1.2rem;
+  }
+  .catalogo-cards p {
+    font-size: 14px;
+  }
+  .catalogo-cards .catalogo-cards_descripcion {
+    height: 70px;
+  }
+  .catalogo-cards .catalogo-cards_buttons {
+    bottom: 0;
+    gap: 6px;
+    width: 100%;
+  }
+  .catalogo-cards .catalogo-cards_buttons button {
+    color: #022859;
+    font-family: "Poppins", sans-serif;
+    background-color: #B6C5F2;
+    padding: 3px;
+    font-size: 14px;
+    padding: 4px;
+    border: 1px solid #022859;
+    border-radius: 5px;
+  }
+  .offset-cards img {
+    display: none;
+  }
+  .offset-cards h4 {
+    font-size: 14px;
+    margin-left: 2px;
+  }
+  .offset-cards p {
+    font-size: 12px;
+  }
+  .offset-cards div {
+    width: 20%;
+    gap: 8px;
+    margin-right: 4px;
+  }
+  .offset-cards div button {
+    height: 26px;
+    font-size: 14px;
+  }
+  .offset-cards div button:hover {
+    background-color: #B6C5F2;
   }
 }/*# sourceMappingURL=style.css.map */

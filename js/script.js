@@ -53,13 +53,17 @@ await actualizarCatalogo();
 // Mostrar Productos en carrito
 function mostrarPantallaCarrito(){ 
   carritoProductos.innerHTML = '';
-  tienda.carrito.forEach(producto => {
-    let productoAgregar = productoParaCarrito(producto);
-    carritoProductos.insertAdjacentHTML('beforeend', productoAgregar);
-    botonAgregarCantidad = document.querySelectorAll(".agregarCantidad"); // Asignacion de boton
-    botonDisminuirCantidad = document.querySelectorAll(".disminuirCantidad"); // Asignacion de boton
-    botonBorrarProducto = document.querySelectorAll(".borrarProducto"); // Asignacion de boton
-  })
+  if (tienda.carrito.length > 0) {
+    tienda.carrito.forEach(producto => {
+      let productoAgregar = productoParaCarrito(producto);
+      carritoProductos.insertAdjacentHTML('beforeend', productoAgregar);
+      botonAgregarCantidad = document.querySelectorAll(".agregarCantidad"); // Asignacion de boton
+      botonDisminuirCantidad = document.querySelectorAll(".disminuirCantidad"); // Asignacion de boton
+      botonBorrarProducto = document.querySelectorAll(".borrarProducto"); // Asignacion de boton
+    })
+  } else {
+    carritoProductos.innerHTML = '<h2>No hay items</h2>';
+  }
     agregarEventListenersCarrito()
   // actualizarPrecioCantidad()
 }
