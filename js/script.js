@@ -19,7 +19,7 @@ const cantidadImpresa = document.getElementById("cantidad"); // Cantidad de prod
 const precioFinalImpreso = document.getElementById("precio-final"); // Precio final en pantalla
 const carrito = document.getElementById('carrito'); // Carrito, se trae para desplegar el menu
 let carritoProductos = document.querySelector('.carrito-productos'); // Div para insertar productos (Carrito)
-
+const cantidadCarrito = document.querySelector(".cantidad-carrito");
 
 // Creacion de catalogo
 const catalogo = document.getElementById("catalogo"); // Section Catalogo, aca se va a renderizar cada CARD
@@ -85,6 +85,19 @@ function mostrarPantallaCarrito(){
       cantidadImpresa.innerHTML = tienda.cantidadProductos;
     }
   }
+
+  //Agrega saca y modifica la cantidad de productros en el carrito(icono rojo)
+  function cantidadProductoCarrito(){
+    cantidadCarrito.innerHTML = '';
+    if(tienda.carrito.length > 0) {
+      cantidadCarrito.style.display = "inline";
+      cantidadCarrito.innerHTML = tienda.carrito.length;
+    } else {
+      cantidadCarrito.style.display = "none";
+      cantidadCarrito.innerHTML = '';
+    }
+  }
+
   //Eventos de botones de tarjetas
   function agregarEventListeners(){
     // Agregar al carrito
@@ -92,6 +105,7 @@ function mostrarPantallaCarrito(){
       boton.addEventListener("click", () => {
         let producto = catalogoProductos.find(producto => producto.id == boton.value);
         tienda.agregarAlCarrito(producto);
+        cantidadProductoCarrito()
         actualizarCatalogo();
         actualizarPrecioCantidad();
       })
@@ -109,6 +123,7 @@ function mostrarPantallaCarrito(){
             mostrarPantallaCarrito()
             actualizarPrecioCantidad();
             actualizarCatalogo();
+            cantidadProductoCarrito()
           })
         })
       
@@ -119,6 +134,7 @@ function mostrarPantallaCarrito(){
           tienda.disminuirCantidad(producto);
           actualizarCatalogo();
           actualizarPrecioCantidad();
+          cantidadProductoCarrito()
         })
       })
       // Borrar producto
@@ -128,6 +144,7 @@ function mostrarPantallaCarrito(){
           tienda.eliminarProducto(producto);
           actualizarPrecioCantidad();
           actualizarCatalogo();
+          cantidadProductoCarrito()
         })
       })
     }
@@ -205,6 +222,7 @@ function mostrarPantallaCarrito(){
       tienda.vaciarCarrito();
       actualizarPrecioCantidad();
       mostrarPantallaCarrito()
+      cantidadProductoCarrito()
       console.log("Carrito borrado")
     } else {
       console.log("Carrito sin productos")

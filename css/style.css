@@ -92,6 +92,21 @@ header {
   color: #B6C5F2;
 }
 
+.cantidad-carrito {
+  display: none;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+  background-color: red;
+  color: #FFFFFF;
+  font-size: 13px;
+  text-align: center;
+  transform: translate(-5px, -3px);
+}
+
 .main {
   background-color: #B6C5F2;
   padding-top: 30px;
@@ -401,5 +416,10 @@ header {
   }
   .offset-cards div button:hover {
     background-color: #B6C5F2;
+  }
+  .cantidad-carrito {
+    height: 15px;
+    width: 15px;
+    font-size: 8px;
   }
 }/*# sourceMappingURL=style.css.map */
