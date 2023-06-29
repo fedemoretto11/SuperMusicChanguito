@@ -1,4 +1,3 @@
-// import * as  producto  from './productos.js'
 // const carrito = document.querySelector(".offset-carrito");
 
 export class Shop {
@@ -155,24 +154,7 @@ export class Shop {
 
   // Este metodo se va a utilizar para mostrar los productos en carrito, a implementar en siguiente etapa del HTML/CSS
   
-  mostrarPantalla(){ 
-    this.carrito.forEach(producto => {
-      let productoAgregar = 
-      `
-      <div class="offset-cards center">
-        <img src="${producto.imagen}" alt="${producto.altImagen}">
-        <h5>${producto.nombre}</h5>
-        <p>${producto.cantidad}</p>
-        <p>${producto.precio}</p>
-        <p>${producto.subtotal}</p>
-        <button class="borrar-producto">
-          <i class="bi bi-trash3"></i>
-        </button>
-      </div>
-    `
-    carrito.insertAdjacentHTML('beforeend', productoAgregar);
-    })
-  }
+ 
 
   precioDolar() { // Falta hacer que cambie de signo cuando cambia de moneda e implementarlo
     let valorDolar = 500;

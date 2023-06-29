@@ -27,6 +27,8 @@ body {
 header {
   background-color: #022859;
   width: 100vw;
+  z-index: 10;
+  position: fixed;
 }
 
 .header-top {
@@ -46,7 +48,6 @@ header {
 }
 .header-top .header-top_titulo h1 {
   color: #138AF2;
-  font-size: 42px;
   font-family: "Poppins", sans-serif;
   margin: 0;
 }
@@ -101,6 +102,7 @@ header {
   flex-wrap: wrap;
   min-height: 100vh;
   align-items: flex-start;
+  margin-top: 187px;
 }
 
 .catalogo-cards {
@@ -161,38 +163,123 @@ header {
   border-left: none;
 }
 
-#botones-carrito-gral {
-  margin-top: 20px;
-  width: 100vw;
-  text-align: center;
-  font-size: 24px;
-  font-family: "Poppins", sans-serif;
-  background-color: #B6C5F2;
+#carrito {
+  position: fixed;
+  height: calc(100vh - 148px);
+  width: 50%;
+  margin-top: 148px;
+  background-color: rgba(3, 37, 140, 0.8235294118);
+  box-shadow: 0 0 5px #03258C;
+  z-index: 1000;
+  transition: 0.5s ease;
+  justify-content: space-between;
+  color: #022859;
 }
-#botones-carrito-gral button {
-  border-radius: 5px;
-  font-family: "Poppins", sans-serif;
-  font-size: 24px;
+#carrito h2 {
   padding: 6px;
-  background-color: #B6C5F2;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-#botones-carrito-gral button:hover {
-  background-color: #03258C;
-  color: #B6C5F2;
-}
-#botones-carrito-gral p {
-  margin-bottom: 0;
-  padding: 5px;
+  color: #FFFFFF;
 }
 
-#carrito {
-  background: none;
-  color: #022859;
-  background-color: #138AF2 !important;
+.offset-active {
+  right: 0;
 }
-#carrito:hover {
-  background-color: #03258C !important;
-  color: #B6C5F2;
+
+.carrito-top {
+  width: 100%;
+}
+.carrito-top h2 {
+  text-align: center;
+}
+
+.carrito-productos {
+  gap: 6px;
+  width: 100%;
+}
+
+.offset-cards {
+  background-color: #FFFFFF;
+  width: 95%;
+  height: 50px;
+  border: 2px solid #138AF2;
+  border-radius: 5px;
+  justify-content: space-between;
+  text-align: start;
+}
+.offset-cards img {
+  height: 40px;
+  width: 10%;
+  max-width: 60px;
+  background-blend-mode: screen;
+}
+.offset-cards h4 {
+  color: #022859 !important;
+  font-size: 20px;
+  margin-bottom: 0;
+  width: 150px;
+  width: 40%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.offset-cards p {
+  margin-bottom: 0;
+  margin-left: 5px;
+  font-size: 16px;
+  width: 15%;
+}
+.offset-cards div {
+  width: 20%;
+  gap: 8px;
+}
+.offset-cards div button {
+  padding: 0px;
+  height: 30px;
+  width: 20px;
+  font-size: 16px;
+  background: none;
+  border: 2px solid #138AF2;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+.offset-cards div button:hover {
+  background-color: #B6C5F2;
+}
+
+.carrito-bottom {
+  margin-top: 6px;
+  width: 95%;
+  justify-content: space-between;
+  color: #FFFFFF;
+}
+
+.carrito-bottom_datos p {
+  width: 100%;
+  margin-bottom: 0;
+  text-align: start;
+}
+
+.carrito-bottom_botones {
+  justify-content: flex-end;
+  padding: 0;
+}
+.carrito-bottom_botones button {
+  margin: 6px;
+  padding: 6px;
+  color: #022859;
+  background: #B6C5F2;
+  border: 2px solid #138AF2;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+.carrito-bottom_botones button:hover {
+  background-color: #138AF2;
+  color: #000000;
+}
+
+@media screen and (max-width: 1200px) {
+  #carrito {
+    margin-top: 209px;
+    width: 100%;
+    height: calc(100vh - 209px);
+  }
 }/*# sourceMappingURL=style.css.map */

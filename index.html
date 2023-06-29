@@ -20,12 +20,12 @@
   <header>
     <div class="center  container-fluid">
       <div class="row header-top">
-        <div class="center header-top_titulo col-md-5">
+        <div class="center header-top_titulo col-xl-6">
           <img src="./img/logo.webp" alt="Logo Super Music Changuito">
           <h1>Super Music Changuito</h1>
 
         </div>
-        <form action="" class="header-top_buscador center col-md-6">
+        <form action="" class="header-top_buscador center col-xl-5">
           <label for="buscador-input_buscar"></label>
           <input type="text" id="buscador-input_buscar" placeholder="Ingrese un articulo a buscar">
         </form>
@@ -45,10 +45,37 @@
         <li class="nav-button">
           <a class="nav-button_link" data-category="MLA3004" href="">Baterias</a>
         </li>
+        <li>
+          <a id="boton-carrito" href="">
+            <i class="bi bi-cart"></i>
+          </a>
+        </li>
       </ul>
     </nav>
     
   </header>
+
+  <section id="carrito" class="center-column offset container-fluid" style="right: -1000px;">
+    <div class="carrito-top">
+      <h2>Carrito</h2>
+      <div class="carrito-productos center-column">
+        
+      </div>
+    </div>
+
+    <div class="carrito-bottom center row">
+      <div class="carrito-bottom_datos center-column col-md-5">
+        <p>Pproductos: <b><span id="cantidad">0</span></b></p>
+        <p>Subtotal: <b><span class="moneda">$</span> <span id="subtotal">0</span></b></p>
+      </div>
+      <div class="carrito-bottom_botones col-md-6 center">
+        <button id="borrar-carrito">Borrar Carrito</button>
+        <button id="comprar">Comprar</button>
+      </div>
+    </div>
+  </section>
+
+
 
   <main class="center-column main">
     <section id="catalogo" class="center">
@@ -59,13 +86,13 @@
       <button class="paginas-botones" value="15">15</button>
       <button class="paginas-botones" value="20">20</button>
     </section>
+    
     <section id="botones-carrito-gral">
-      <button id="carrito">CARRITO</button>
-      <button id="borrar-carrito">Borrar Carrito</button>
-      <button id="comprar">Comprar</button>
-      <p>Subtotal: <b><span class="moneda">$</span> <span id="subtotal">0</span></b></p>
-      <p>Cantidad de productos: <b><span id="cantidad">0</span></b></p>
-      <p>Precio Final: <b><span class="moneda">$</span> <span id="precio-final">0</span></b></p>
+
+      <!-- <button id="boton-carrito">CARRITO</button> -->
+
+      
+      
     </section>
   </main>
 
