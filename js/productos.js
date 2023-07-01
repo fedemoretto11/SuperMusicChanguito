@@ -11,7 +11,7 @@ export async function obtenerProductos(categoria, limite) {
 }
 
 
-// Card
+// CardCatalogo
 
 function card({id,imagen, altImagen, nombre,descripcion,cantidadDisponible, precio, moneda}) { 
   return `
@@ -20,12 +20,9 @@ function card({id,imagen, altImagen, nombre,descripcion,cantidadDisponible, prec
       <h2>${nombre}</h2>
       <p class="catalogo-cards_descripcion">${descripcion}</p>
       <p>Stock: ${cantidadDisponible}</p>
-      <p>Precio: ${moneda} ${precio}</p>
+      <p>Precio: ${moneda} ${precio.toLocaleString()}</p>
       <div class="center catalogo-cards_buttons">
         <button class="agregarCarrito" value="${id}">Agregar al Carrito</button>
-        <!-- <button class="agregarCantidad" value="${id}">+</button>
-        <button class="disminuirCantidad" value="${id}">-</button>
-        <button class="borrarProducto" value="${id}">Borrar</button> -->
       </div>
     </div>
     `
@@ -33,7 +30,7 @@ function card({id,imagen, altImagen, nombre,descripcion,cantidadDisponible, prec
 }
 
 
-// Renderizacion
+// Renderizacion Card catalogo
 
 export function renderizar(item) {
   let name = item.title ? item.title.split(' ').slice(0, 3).join(' ') : "";
@@ -53,6 +50,8 @@ export function renderizar(item) {
 }
 
 
+// Card Carrito
+
 function cardCarrito({id,imagen, altImagen, nombre,cantidad, precio, moneda}) { 
   return `
     <div class="offset-cards center">
@@ -71,6 +70,8 @@ function cardCarrito({id,imagen, altImagen, nombre,cantidad, precio, moneda}) {
     `
 
 }
+
+// Renderizacion Card carrito
 
 export function productoParaCarrito(item) {
   let name = item.title ? item.title.split(' ').slice(0, 3).join(' ') : "";

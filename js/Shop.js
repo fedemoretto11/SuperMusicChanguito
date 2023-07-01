@@ -9,6 +9,7 @@ export class Shop {
     this.cantidadProductos = 0;
   }
 
+  
 
 
 
@@ -20,6 +21,8 @@ export class Shop {
     // Cheque si existe en carrito
     if (this.carrito.includes(productoNuevo)) {
       console.log("El producto ya existe en el carrito")
+      alert("El producto ya ha sido ingresado.\nPara comprar más agregue desde la sección carrito")
+
 
     // Chequea si el producto tiene stock
     } else if (productoNuevo.installments.quantity <= 0) {
@@ -47,7 +50,7 @@ export class Shop {
     // Cheque si tiene Stock
     if (productoNuevo.installments.quantity <= 0) {
       console.log("Producto sin stock");
-
+      alert("Producto sin Stock")
     // Chequea que el producto este y suma una unidad al carrito
     } else if (this.carrito.includes(productoNuevo)) {
       productoNuevo.cantidad++;
@@ -81,6 +84,7 @@ export class Shop {
       localStorage.setItem("carrito", JSON.stringify(this.carrito));
     } else {
       console.log("El producto no esta en el carrito")
+      alert("El producto no se encuentra en el carrito")
     }
   }
 
@@ -98,6 +102,8 @@ export class Shop {
       localStorage.setItem("carrito", JSON.stringify(this.carrito));
     } else {
       console.log("El producto no se encuentra en el carrito")
+      alert("El producto no se encuentra en el carrito");
+
     }
   }
 
@@ -154,7 +160,7 @@ export class Shop {
 
   // Este metodo se va a utilizar para mostrar los productos en carrito, a implementar en siguiente etapa del HTML/CSS
   
- 
+
 
   precioDolar() { // Falta hacer que cambie de signo cuando cambia de moneda e implementarlo
     let valorDolar = 500;

@@ -16,7 +16,6 @@ const botonesPaginas = document.querySelectorAll(".paginas-botones");
 const buscadorInput = document.getElementById("buscador-input_buscar"); // Input texto buscador parte superior
 const precioSubtotalImpreso = document.getElementById("subtotal"); // Subtotal en pantalla
 const cantidadImpresa = document.getElementById("cantidad"); // Cantidad de productos en pantalla
-const precioFinalImpreso = document.getElementById("precio-final"); // Precio final en pantalla
 const carrito = document.getElementById('carrito'); // Carrito, se trae para desplegar el menu
 let carritoProductos = document.querySelector('.carrito-productos'); // Div para insertar productos (Carrito)
 const cantidadCarrito = document.querySelector(".cantidad-carrito");
@@ -26,7 +25,6 @@ const catalogo = document.getElementById("catalogo"); // Section Catalogo, aca s
 
 // Creacion del Shop
 const tienda = new Shop(); // Instanciacion del Shop
-
 
 
 // Variables categoria y limite para pasar como parametros en funcion de cambiar de categoria y mostrar cantidad de tarjetas por pagina
@@ -43,28 +41,30 @@ async function actualizarCatalogo(){
   catalogoProductos.forEach(producto => {
     let productoCatalogo = renderizar(producto);
     catalogo.insertAdjacentHTML("beforeend", productoCatalogo);
-    botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
   });
+  botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
   agregarEventListeners();
+  cantidadProductoCarrito()
 }
 await actualizarCatalogo();
-
+// console.log(catalogoProductos)
 
 // Mostrar Productos en carrito
 function mostrarPantallaCarrito(){ 
+  
   carritoProductos.innerHTML = '';
   if (tienda.carrito.length > 0) {
     tienda.carrito.forEach(producto => {
       let productoAgregar = productoParaCarrito(producto);
       carritoProductos.insertAdjacentHTML('beforeend', productoAgregar);
-      botonAgregarCantidad = document.querySelectorAll(".agregarCantidad"); // Asignacion de boton
-      botonDisminuirCantidad = document.querySelectorAll(".disminuirCantidad"); // Asignacion de boton
-      botonBorrarProducto = document.querySelectorAll(".borrarProducto"); // Asignacion de boton
     })
   } else {
     carritoProductos.innerHTML = '<h2>No hay items</h2>';
   }
-    agregarEventListenersCarrito()
+  botonAgregarCantidad = document.querySelectorAll(".agregarCantidad"); // Asignacion de boton
+  botonDisminuirCantidad = document.querySelectorAll(".disminuirCantidad"); // Asignacion de boton
+  botonBorrarProducto = document.querySelectorAll(".borrarProducto"); // Asignacion de boton
+  agregarEventListenersCarrito()
   // actualizarPrecioCantidad()
 }
 
@@ -79,11 +79,9 @@ function mostrarPantallaCarrito(){
       precioSubtotalImpreso.innerHTML = 0;
       cantidadImpresa.innerHTML = 0;
     }
-    for (let producto of tienda.carrito) {
-      tienda.calculoIva();
-      precioSubtotalImpreso.innerHTML = tienda.precioSubtotal.toFixed(2);
-      cantidadImpresa.innerHTML = tienda.cantidadProductos;
-    }
+    tienda.calculoIva();
+    precioSubtotalImpreso.innerHTML = tienda.precioSubtotal.toLocaleString();
+    cantidadImpresa.innerHTML = tienda.cantidadProductos;
   }
 
   //Agrega saca y modifica la cantidad de productros en el carrito(icono rojo)
@@ -120,7 +118,6 @@ function mostrarPantallaCarrito(){
         boton.addEventListener("click", () => {
             let producto = catalogoProductos.find(producto => producto.id == boton.value);
             tienda.aumentarCantidad(producto);
-            mostrarPantallaCarrito()
             actualizarPrecioCantidad();
             actualizarCatalogo();
             cantidadProductoCarrito()
@@ -250,7 +247,10 @@ function mostrarPantallaCarrito(){
     resultados.forEach(resultado => {
       let resRend = renderizar(resultado);
       catalogo.insertAdjacentHTML("beforeend", resRend);
+      botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
+
     })
+    agregarEventListeners();
   })
 
 
