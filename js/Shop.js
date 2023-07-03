@@ -17,7 +17,7 @@ export class Shop {
   // Agregar al Carrito, chequea si existe en carrito, si tiene stock y luego agrega
 
   agregarAlCarrito(productoNuevo) {
-
+    let productoCarrito = this.carrito.find(producto => producto.id == productoNuevo.id);
     // Cheque si existe en carrito
     if (this.carrito.includes(productoNuevo)) {
       console.log("El producto ya existe en el carrito")
@@ -45,21 +45,22 @@ export class Shop {
 
   //Aumenta cantidad en carrito en 1
 
-  aumentarCantidad(productoNuevo){
-
-    // Cheque si tiene Stock
-    if (productoNuevo.installments.quantity <= 0) {
-      console.log("Producto sin stock");
-      alert("Producto sin Stock")
-    // Chequea que el producto este y suma una unidad al carrito
-    } else if (this.carrito.includes(productoNuevo)) {
+  aumentarCantidad(id){
+    let productoNuevo = this.carrito.find(producto => producto.id == id);
+    console.log("Producto a modificar cantidad:", productoNuevo);
+    if (this.carrito.includes(productoNuevo)) {
+      // Cheque si tiene Stock
+      if (productoNuevo.installments.quantity <= 0) {
+        console.log("Producto sin stock");
+        alert("Producto sin Stock")
+        return;
+      }
       productoNuevo.cantidad++;
       productoNuevo.subtotal = productoNuevo.price * productoNuevo.cantidad;
       productoNuevo.installments.quantity--;
       this.calculoCantidad()
       this.calculoPrecioSubtotal()
       localStorage.setItem("carrito", JSON.stringify(this.carrito));
-
     // Si no esta en carrito avisa que no esta
     } else {
       console.log("El producto no esta en el carrito")
@@ -67,10 +68,12 @@ export class Shop {
   }
 
 
+
   //Disminuye cantidad en carrito en 1
 
-  disminuirCantidad(productoNuevo){
-    let indice = this.carrito.indexOf(productoNuevo);
+  disminuirCantidad(id){
+    let productoNuevo = this.carrito.find(producto => producto.id == id);
+    console.log("Producto a modificar cantidad:", productoNuevo);
     if (this.carrito.includes(productoNuevo)) {
       productoNuevo.cantidad--;
       productoNuevo.subtotal = productoNuevo.price * productoNuevo.cantidad;
@@ -79,6 +82,7 @@ export class Shop {
       this.calculoPrecioSubtotal()
       if(productoNuevo.cantidad == 0) {
         console.log("Producto eliminado del carrito");
+        let indice = this.carrito.indexOf(productoNuevo);
         this.carrito.splice(indice,1);
       }
       localStorage.setItem("carrito", JSON.stringify(this.carrito));
@@ -91,7 +95,8 @@ export class Shop {
 
   // Elimina el producto en el carrito
 
-  eliminarProducto(productoEliminar){
+  eliminarProducto(id){
+    let productoEliminar = this.carrito.find(producto => producto.id == id);
     let nombre = productoEliminar.title ? productoEliminar.title.split(' ').slice(0, 3).join(' ') : "";
     let indice = this.carrito.indexOf(productoEliminar);
     if (this.carrito.includes(productoEliminar)) {

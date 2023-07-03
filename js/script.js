@@ -116,19 +116,17 @@ function mostrarPantallaCarrito(){
     if (tienda.carrito.length > 0) {
       botonAgregarCantidad.forEach(boton => {
         boton.addEventListener("click", () => {
-            let producto = catalogoProductos.find(producto => producto.id == boton.value);
-            tienda.aumentarCantidad(producto);
-            actualizarPrecioCantidad();
-            actualizarCatalogo();
-            cantidadProductoCarrito()
-          })
+          tienda.aumentarCantidad(boton.value);
+          actualizarPrecioCantidad();
+          actualizarCatalogo();
+          cantidadProductoCarrito()
         })
+      })
       
       // Disminuir cantidad
       botonDisminuirCantidad.forEach(boton => {
         boton.addEventListener("click", () => {
-          let producto = catalogoProductos.find(producto => producto.id == boton.value);
-          tienda.disminuirCantidad(producto);
+          tienda.disminuirCantidad(boton.value);
           actualizarCatalogo();
           actualizarPrecioCantidad();
           cantidadProductoCarrito()
@@ -137,8 +135,7 @@ function mostrarPantallaCarrito(){
       // Borrar producto
       botonBorrarProducto.forEach(boton => {
         boton.addEventListener("click", () => {
-          let producto = catalogoProductos.find(producto => producto.id == boton.value);
-          tienda.eliminarProducto(producto);
+          tienda.eliminarProducto(boton.value);
           actualizarPrecioCantidad();
           actualizarCatalogo();
           cantidadProductoCarrito()
