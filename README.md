@@ -10,6 +10,7 @@ Puedes probar el carrito de compras en acción visitando el siguiente enlace: [C
 
 - Carrito de compras completo desarrollado en JavaScript.
 - Utiliza la API de Mercado Libre para obtener información de productos.
+- Utiliza la API de Mercado Pago para simular el pago de los productos.
 - Diseño y funcionalidad desarrollados desde cero.
 
 ## Contribuciones
@@ -31,6 +32,7 @@ You can try the shopping cart in action by visiting the following link: [Shoppin
 
 - Complete shopping cart developed in JavaScript.
 - Uses the Mercado Libre API to retrieve product information.
+- Use the Mercado Pago API to simulate the payment of the products.
 - Design and functionality developed from scratch.
 
 
