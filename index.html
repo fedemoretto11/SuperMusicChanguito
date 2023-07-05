@@ -17,6 +17,16 @@
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+
+
+  <div id="loading-modal" class="modal">
+    <div class="modal-content">
+      <div class="loader"></div>
+      <h3>Cargando...</h3>
+    </div>
+  </div>
+
+
   <header>
     <div class="center  container-fluid">
       <div class="row header-top">
@@ -99,11 +109,19 @@
 
 
   <footer id="footer" class="container-fluid">
-    <p>Hacer el footer</p>
-    <p>Creado por Federico Moretto</p>
-    <a href="">Arriba</a>
+    <div class="row center">
+      <div class="footer-left col-md-6 center-column">
+        <p>Super Music Changuito &#169 - Todos los derechos reservados</p>
+        <p>Creado por Federico Moretto</p>
+        <p>Curso de JavaScript de CoderHouse</p>
+      </div>
+      <div class="footer-right col-md-5 center-column">
+        <a href="">Volver arriba ( esto quiere decir subir ir al inicio simio )</a>
+      </div>
+    </div>
   </footer>
 
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script type="module" src="./js/script.js"></script>
 </body>
 </html>

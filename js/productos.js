@@ -1,5 +1,4 @@
 // Funcion que obtiene la informacion de la API de MELI
-
 export async function obtenerProductos(categoria, limite) {
   try {
     const result = await fetch(`https://api.mercadolibre.com/sites/MLA/search?category=${categoria}&limit=${limite}`);
@@ -12,7 +11,6 @@ export async function obtenerProductos(categoria, limite) {
 
 
 // CardCatalogo
-
 function card({id,imagen, altImagen, nombre,descripcion,cantidadDisponible, precio, moneda}) { 
   return `
     <div class="catalogo-cards center-column">
@@ -29,29 +27,7 @@ function card({id,imagen, altImagen, nombre,descripcion,cantidadDisponible, prec
 
 }
 
-
-// Renderizacion Card catalogo
-
-export function renderizar(item) {
-  let name = item.title ? item.title.split(' ').slice(0, 3).join(' ') : "";
-  const producto = {
-    id: item.id,
-    imagen: item.thumbnail,
-    altImagen: item.title,
-    nombre: name,
-    descripcion: item.title,
-    cantidadDisponible: item.installments.quantity,
-    precio: item.price,
-    moneda: item.currency_id === "ARS" ? "$" : "USD",
-  }
-
-  let productoRenderizado = card(producto);
-  return productoRenderizado;
-}
-
-
 // Card Carrito
-
 function cardCarrito({id,imagen, altImagen, nombre,cantidad, precio, moneda}) { 
   return `
     <div class="offset-cards center">
@@ -71,8 +47,25 @@ function cardCarrito({id,imagen, altImagen, nombre,cantidad, precio, moneda}) {
 
 }
 
-// Renderizacion Card carrito
+// Renderizacion Card catalogo
+export function renderizar(item) {
+  let name = item.title ? item.title.split(' ').slice(0, 3).join(' ') : "";
+  const producto = {
+    id: item.id,
+    imagen: item.thumbnail,
+    altImagen: item.title,
+    nombre: name,
+    descripcion: item.title,
+    cantidadDisponible: item.installments.quantity,
+    precio: item.price,
+    moneda: item.currency_id === "ARS" ? "$" : "USD",
+  }
 
+  let productoRenderizado = card(producto);
+  return productoRenderizado;
+}
+
+// Renderizacion Card carrito
 export function productoParaCarrito(item) {
   let name = item.title ? item.title.split(' ').slice(0, 3).join(' ') : "";
   const producto = {

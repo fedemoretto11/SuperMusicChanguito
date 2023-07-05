@@ -18,7 +18,14 @@ const precioSubtotalImpreso = document.getElementById("subtotal"); // Subtotal e
 const cantidadImpresa = document.getElementById("cantidad"); // Cantidad de productos en pantalla
 const carrito = document.getElementById('carrito'); // Carrito, se trae para desplegar el menu
 let carritoProductos = document.querySelector('.carrito-productos'); // Div para insertar productos (Carrito)
-const cantidadCarrito = document.querySelector(".cantidad-carrito");
+const cantidadCarrito = document.querySelector(".cantidad-carrito"); // Botoncito con cantidades en carrito
+
+const modal = new bootstrap.Modal(document.getElementById("loading-modal"), {
+  keyboard: false
+})
+// modal.show()
+
+
 
 // Creacion de catalogo
 const catalogo = document.getElementById("catalogo"); // Section Catalogo, aca se va a renderizar cada CARD
@@ -36,7 +43,7 @@ let catalogoProductos = await obtenerProductos(categoria,limite); // Asigna a la
 
 
 // Esta funcion actualiza el Catalogo mostrado en pantalla
-async function actualizarCatalogo(){
+function actualizarCatalogo(){
   catalogo.innerHTML = "";
   catalogoProductos.forEach(producto => {
     let productoCatalogo = renderizar(producto);
@@ -45,9 +52,18 @@ async function actualizarCatalogo(){
   botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
   agregarEventListeners();
   cantidadProductoCarrito()
+  console.log(catalogoProductos)
 }
-await actualizarCatalogo();
+
+actualizarCatalogo();
+
+
 // console.log(catalogoProductos)
+
+
+
+
+
 
 // Mostrar Productos en carrito
 function mostrarPantallaCarrito(){ 
@@ -67,88 +83,86 @@ function mostrarPantallaCarrito(){
   agregarEventListenersCarrito()
   // actualizarPrecioCantidad()
 }
-
-
-
-
 // Funciones varias
-  
-  //Mostrar en pantalla subtotal y cantidad
-  function actualizarPrecioCantidad(){
-    if(tienda.carrito.length == 0) {
-      precioSubtotalImpreso.innerHTML = 0;
-      cantidadImpresa.innerHTML = 0;
-    }
-    tienda.calculoIva();
-    precioSubtotalImpreso.innerHTML = tienda.precioSubtotal.toLocaleString();
-    cantidadImpresa.innerHTML = tienda.cantidadProductos;
+//Mostrar en pantalla subtotal y cantidad
+function actualizarPrecioCantidad(){
+  if(tienda.carrito.length == 0) {
+    precioSubtotalImpreso.innerHTML = 0;
+    cantidadImpresa.innerHTML = 0;
   }
+  tienda.calculoIva();
+  precioSubtotalImpreso.innerHTML = tienda.precioSubtotal.toLocaleString();
+  cantidadImpresa.innerHTML = tienda.cantidadProductos;
+}
 
-  //Agrega saca y modifica la cantidad de productros en el carrito(icono rojo)
-  function cantidadProductoCarrito(){
+//Agrega saca y modifica la cantidad de productros en el carrito(icono rojo)
+function cantidadProductoCarrito(){
+  cantidadCarrito.innerHTML = '';
+  if(tienda.carrito.length > 0) {
+    cantidadCarrito.style.display = "inline";
+    cantidadCarrito.innerHTML = tienda.carrito.length;
+  } else {
+    cantidadCarrito.style.display = "none";
     cantidadCarrito.innerHTML = '';
-    if(tienda.carrito.length > 0) {
-      cantidadCarrito.style.display = "inline";
-      cantidadCarrito.innerHTML = tienda.carrito.length;
-    } else {
-      cantidadCarrito.style.display = "none";
-      cantidadCarrito.innerHTML = '';
-    }
   }
+}
 
-  //Eventos de botones de tarjetas
-  function agregarEventListeners(){
-    // Agregar al carrito
-    botonAgregarCarrito.forEach(boton => {
+//Eventos de botones de tarjetas
+function agregarEventListeners(){
+  // Agregar al carrito
+  botonAgregarCarrito.forEach(boton => {
+    boton.addEventListener("click", () => {
+      let producto = catalogoProductos.find(producto => producto.id == boton.value);
+      tienda.agregarAlCarrito(producto);
+      cantidadProductoCarrito()
+      actualizarCatalogo();
+      actualizarPrecioCantidad();
+    })
+    mostrarPantallaCarrito();
+    
+  })
+}
+//Eventos de botones de tarjetas de carrito
+function agregarEventListenersCarrito() {
+  // Aumentar cantidad
+  if (tienda.carrito.length > 0) {
+    botonAgregarCantidad.forEach(boton => {
       boton.addEventListener("click", () => {
-        let producto = catalogoProductos.find(producto => producto.id == boton.value);
-        tienda.agregarAlCarrito(producto);
+        tienda.aumentarCantidad(boton.value);
+        actualizarPrecioCantidad();
+        actualizarCatalogo();
         cantidadProductoCarrito()
+      })
+    })
+    
+    // Disminuir cantidad
+    botonDisminuirCantidad.forEach(boton => {
+      boton.addEventListener("click", () => {
+        tienda.disminuirCantidad(boton.value);
         actualizarCatalogo();
         actualizarPrecioCantidad();
+        cantidadProductoCarrito()
       })
-      mostrarPantallaCarrito();
+    })
+    // Borrar producto
+    botonBorrarProducto.forEach(boton => {
+      boton.addEventListener("click", () => {
+        tienda.eliminarProducto(boton.value);
+        actualizarPrecioCantidad();
+        actualizarCatalogo();
+        cantidadProductoCarrito()
+      })
     })
   }
-  //Eventos de botones de tarjetas de carrito
-  function agregarEventListenersCarrito() {
-    // Aumentar cantidad
-    if (tienda.carrito.length > 0) {
-      botonAgregarCantidad.forEach(boton => {
-        boton.addEventListener("click", () => {
-          tienda.aumentarCantidad(boton.value);
-          actualizarPrecioCantidad();
-          actualizarCatalogo();
-          cantidadProductoCarrito()
-        })
-      })
-      
-      // Disminuir cantidad
-      botonDisminuirCantidad.forEach(boton => {
-        boton.addEventListener("click", () => {
-          tienda.disminuirCantidad(boton.value);
-          actualizarCatalogo();
-          actualizarPrecioCantidad();
-          cantidadProductoCarrito()
-        })
-      })
-      // Borrar producto
-      botonBorrarProducto.forEach(boton => {
-        boton.addEventListener("click", () => {
-          tienda.eliminarProducto(boton.value);
-          actualizarPrecioCantidad();
-          actualizarCatalogo();
-          cantidadProductoCarrito()
-        })
-      })
-    }
-  }
+}
 
-
-
-
-
-
+// Loader
+function loaderShow(){
+  loadingModal.style.display = 'block'
+}
+function loaderHide(){
+    loadingModal.style.display = 'none'
+}
 
 
 
@@ -156,99 +170,100 @@ function mostrarPantallaCarrito(){
 
 // Eventos 
 
-  // Mostrar disitntas categorias del catalogo
-  botonesCategorias.forEach(boton => {
-    boton.addEventListener("click", (e) => {
-      e.preventDefault();
-      botonesCategorias.forEach(button => {
-        button.classList.remove("active");
+// Mostrar disitntas categorias del catalogo
+botonesCategorias.forEach(boton => {
+  boton.addEventListener("click", (e) => {
+    e.preventDefault();
+    botonesCategorias.forEach(button => {
+      button.classList.remove("active");
+    })
+    boton.classList.add("active")
+
+    categoria = boton.dataset.category;
+    obtenerProductos(categoria, limite)
+      .then(resultado => {
+        catalogoProductos = resultado;
+        actualizarCatalogo();
+        
       })
-      boton.classList.add("active")
-
-      categoria = boton.dataset.category;
-      obtenerProductos(categoria, limite)
-        .then(resultado => {
-          catalogoProductos = resultado;
-          actualizarCatalogo();
-          
-        })
-      agregarEventListeners();
-    })  
-  })
+    agregarEventListeners();
+  })  
+})
 
 
-  // Mostrar cantidad de tarjetas por pagina
-  botonesPaginas.forEach(boton => {
-    boton.addEventListener("click", (e) => {
-      e.preventDefault();
-      limite = boton.value;
-      console.log(limite);
-      console.log(categoria);
-
-      obtenerProductos(categoria, limite)
-        .then(resultado => {
-          catalogoProductos = resultado;
-          actualizarCatalogo();
-          
-        })
-      agregarEventListeners();
-    })
-  })
-
-
-  // Mostrar carrito
-  botonCarrito.addEventListener("click", (e) => {
+// Mostrar cantidad de tarjetas por pagina
+botonesPaginas.forEach(boton => {
+  boton.addEventListener("click", (e) => {
     e.preventDefault();
-    if (carrito.classList.contains("offset-active")) {
-      carrito.style.right = "-1000px"
-      carrito.classList.remove("offset-active")
-    } else {
-      carrito.style.right = "0px";
-      carrito.classList.add("offset-active");
-    }
-  })
+    limite = boton.value;
+    console.log(limite);
+    console.log(categoria);
 
-
-  // Borrar carrito
-  botonBorrarCarrito.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (tienda.carrito.length > 0) {
-      tienda.vaciarCarrito();
-      actualizarPrecioCantidad();
-      mostrarPantallaCarrito()
-      cantidadProductoCarrito()
-      console.log("Carrito borrado")
-    } else {
-      console.log("Carrito sin productos")
-
-    }
-  })
-
-  //Comprar (Por ahora solo muestra mensaje en consola)
-  botonComprar.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (tienda.carrito.length > 0) {
-      console.log(tienda.carrito);
-      console.log("USTED COMPRA LOS PRODUCTOS DEL CHANGO")
-    } else {
-      console.log("Carrito Vacio")
-    }
-  })
-
-
-  // Buscador de productos
-  buscadorInput.addEventListener("keyup", () => {
-    let buscar = buscadorInput.value;
-    let resultados = tienda.buscarProducto(buscar, catalogoProductos);
-    catalogo.innerHTML = ''
-    resultados.forEach(resultado => {
-      let resRend = renderizar(resultado);
-      catalogo.insertAdjacentHTML("beforeend", resRend);
-      botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
-
-    })
+    obtenerProductos(categoria, limite)
+      .then(resultado => {
+        catalogoProductos = resultado;
+        actualizarCatalogo();
+        
+      })
     agregarEventListeners();
   })
+})
+
+
+// Mostrar carrito
+botonCarrito.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (carrito.classList.contains("offset-active")) {
+    carrito.style.right = "-1000px";
+    carrito.classList.remove("offset-active");
+    botonCarrito.style.color = '#138AF2';
+  } else {
+    carrito.style.right = "0px";
+    carrito.classList.add("offset-active");
+    botonCarrito.style.color = '#FF8000'
+  }
+})
+
+
+// Borrar carrito
+botonBorrarCarrito.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (tienda.carrito.length > 0) {
+    tienda.vaciarCarrito();
+    actualizarPrecioCantidad();
+    mostrarPantallaCarrito()
+    cantidadProductoCarrito()
+    console.log("Carrito borrado")
+  } else {
+    console.log("Carrito sin productos")
+
+  }
+})
+
+//Comprar (Por ahora solo muestra mensaje en consola)
+botonComprar.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (tienda.carrito.length > 0) {
+    tienda.pagar()
+  } else {
+    console.log("Carrito Vacio")
+  }
+})
+
+
+// Buscador de productos
+buscadorInput.addEventListener("keyup", () => {
+  let buscar = buscadorInput.value;
+  let resultados = tienda.buscarProducto(buscar, catalogoProductos);
+  catalogo.innerHTML = ''
+  resultados.forEach(resultado => {
+    let resRend = renderizar(resultado);
+    catalogo.insertAdjacentHTML("beforeend", resRend);
+    botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
+
+  })
+  agregarEventListeners();
+})
 
 
 

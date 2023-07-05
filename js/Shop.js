@@ -159,17 +159,37 @@ export class Shop {
   }
 
 
+  // Metodo para pagar (Integrado con MP)
 
-// METODOS TODAVIA NO IMPLEMENTADOS
+  async pagar() {
+    const productos = this.carrito.map((item) => {
+      let name = item.title ? item.title.split(' ').slice(0, 3).join(' ') : "";
+      const producto = {
+        id: item.id,
+        title: name,
+        description: item.title,
+        picture_url: item.thumbnail,
+        quantity: item.cantidad,
+        currency_id: "ARS",
+        unit_price: item.price,
 
-
-  // Este metodo se va a utilizar para mostrar los productos en carrito, a implementar en siguiente etapa del HTML/CSS
-  
-
-
-  precioDolar() { // Falta hacer que cambie de signo cuando cambia de moneda e implementarlo
-    let valorDolar = 500;
-    this.precioSubtotal = this.precioSubtotal / valorDolar;
+      }
+      return producto
+    })
+    try {
+      const respuesta = await fetch('https://api.mercadopago.com/checkout/preferences', {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer TEST-7498768768197284-070509-1ab012bcdb50a981432634784d903344-156825185",
+      },
+      body: JSON.stringify({items:productos})
+      });
+      const result = await respuesta.json();
+      window.open(result.init_point, "_self");
+    } catch (error) {
+        alert(error)
+    }
+    this.carrito = [];
   }
 
 

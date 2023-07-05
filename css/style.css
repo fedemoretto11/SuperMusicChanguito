@@ -24,16 +24,62 @@ body {
   flex-direction: column;
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 5px;
+  font-family: "Raleway", sans-serif;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #138AF2;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 header {
   background-color: #022859;
   width: 100vw;
   z-index: 10;
   position: fixed;
+  box-shadow: 0 0 15px #022859;
 }
 
 .header-top {
   width: 100vw;
-  padding: 16px;
+  padding: 18px 8px 8px 8px;
   gap: 16px;
 }
 .header-top .header-top_titulo {
@@ -50,10 +96,11 @@ header {
   color: #138AF2;
   font-family: "Poppins", sans-serif;
   margin: 0;
+  font-size: 32px;
 }
 .header-top .header-top_buscador input {
   font-family: "Raleway", sans-serif;
-  font-size: 22px;
+  font-size: 16px;
   width: 80%;
   padding: 6px;
   border: none;
@@ -79,17 +126,11 @@ header {
 .nav li a {
   color: #138AF2;
   text-decoration: none;
-  font-size: 24px;
+  font-size: 20px;
   transition: 0.3s;
 }
-.nav li:has(.active) {
-  background-color: #B6C5F2 !important;
-}
-.nav li:hover {
-  background-color: #022859;
-}
 .nav li:hover a {
-  color: #B6C5F2;
+  color: #FF8000;
 }
 
 .cantidad-carrito {
@@ -116,6 +157,7 @@ header {
 #catalogo {
   flex-wrap: wrap;
   min-height: 100vh;
+  width: 85%;
   align-items: flex-start;
   margin-top: 187px;
 }
@@ -123,26 +165,28 @@ header {
 .catalogo-cards {
   justify-content: space-between;
   height: 420px;
-  width: 420px;
+  width: 260px;
   margin: 5px;
   padding: 15px;
   text-align: center;
   font-family: "Poppins", sans-serif;
   border: 2px solid #022859;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: #FFFFFF;
+  box-shadow: 0 0 5px #03258C;
 }
 .catalogo-cards img {
-  height: 100px;
-  width: 100px;
+  height: 120px;
+  width: 120px;
   -o-object-fit: contain;
      object-fit: contain;
 }
 .catalogo-cards h2 {
-  font-size: 1.6rem;
+  font-size: 1.1rem;
 }
 .catalogo-cards .catalogo-cards_descripcion {
   height: 70px;
+  font-size: 0.8rem;
 }
 .catalogo-cards .catalogo-cards_buttons {
   bottom: 0;
@@ -158,6 +202,11 @@ header {
   padding: 6px;
   border: 1px solid #022859;
   border-radius: 5px;
+  transition: 0.3s;
+}
+.catalogo-cards .catalogo-cards_buttons button:hover {
+  color: #FF8000;
+  background-color: #03258C;
 }
 
 .paginas {
@@ -183,9 +232,9 @@ header {
 
 #carrito {
   position: fixed;
-  height: calc(100vh - 148px);
+  height: calc(100vh - 136px);
   width: 50%;
-  margin-top: 148px;
+  margin-top: 136px;
   background-color: rgba(3, 37, 140, 0.8235294118);
   box-shadow: 0 0 5px #03258C;
   z-index: 1000;
@@ -265,8 +314,10 @@ header {
 
 .carrito-bottom {
   margin-top: 6px;
+  margin-bottom: 6px;
   width: 95%;
   justify-content: space-between;
+  align-items: flex-end;
   color: #FFFFFF;
 }
 
@@ -290,27 +341,56 @@ header {
   transition: 0.3s;
 }
 .carrito-bottom_botones button:hover {
-  background-color: #138AF2;
-  color: #000000;
+  background-color: #03258C;
+  color: #FF8000;
 }
 
 #footer {
   width: 100vw;
-  height: 100px;
+  height: 136px;
   background-color: #022859;
 }
 #footer p {
   color: #FFFFFF;
+  margin: 0;
+}
+
+.row {
+  height: 100%;
+}
+
+.footer-left {
+  padding-top: 10px;
+  gap: 1px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.footer-left p {
+  font-family: "Raleway", sans-serif;
+  width: 100%;
+  text-align: start;
+}
+
+.footer-right a {
+  text-decoration: none;
+  font-family: "Raleway", sans-serif;
+  color: #FFFFFF;
+  transition: 0.3s;
+}
+.footer-right a:hover {
+  color: #FF8000;
 }
 
 @media screen and (max-width: 1200px) {
   #catalogo {
     margin-top: 270px;
+    width: 90%;
   }
   #carrito {
-    margin-top: 209px;
+    margin-top: 188px;
     width: 100%;
-    height: calc(100vh - 209px);
+    height: calc(100vh - 188px);
   }
 }
 @media screen and (max-width: 460px) {
@@ -321,9 +401,9 @@ header {
     margin-top: 180px;
   }
   #carrito {
-    margin-top: 185px;
+    margin-top: 179px;
     width: 100%;
-    height: calc(100vh - 185px);
+    height: calc(100vh - 179px);
   }
   .carrito-bottom_datos {
     justify-content: center;
