@@ -8,7 +8,7 @@ export function obtenerProductos(categoria, limite,offset = 0) {
 
 
 export function productoBusqueda(productoBuscar, categoria){
-  return fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${productoBuscar}limit=2&category=${categoria}`)
+  return fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${productoBuscar}&category=${categoria}`)
   .then(response => response.json())
   .then(data => data.results)
   .catch(error => console.log(error));

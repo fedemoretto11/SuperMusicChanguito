@@ -52,6 +52,7 @@ function actualizarCatalogo(){
   agregarEventListeners();
   cantidadProductoCarrito()
   console.log(catalogoProductos)
+  
 }
 
 
@@ -117,7 +118,6 @@ function agregarEventListeners(){
       actualizarPrecioCantidad();
     })
     mostrarPantallaCarrito();
-    
   })
 }
 //Eventos de botones de tarjetas de carrito
@@ -245,42 +245,47 @@ botonComprar.addEventListener("click", (e) => {
 
 
 // Buscador de productos
-buscadorInput.addEventListener("keyup", () => {
-  if (buscadorInput.value == '') {
-    actualizarCatalogo();
-  } else {
-  let buscar = buscadorInput.value;
-  catalogo.innerHTML = ''
-  tienda.buscarProducto(buscar,categoria)
-    .then(resultados => {
+
+// buscadorInput.addEventListener("keyup", () => {
+//   if (buscadorInput.value == '') {
+//     actualizarCatalogo();
+//   } else {
+//   let buscar = buscadorInput.value;
+//   catalogo.innerHTML = ''
+//   tienda.buscarProducto(buscar, categoria)
+//     .then(resultados => {
+//       resultados.forEach(resultado => {
+//       let resRend = renderizar(resultado);
+//       catalogo.insertAdjacentHTML("beforeend", resRend);  
+//       botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
+//     })
+//     agregarEventListeners();
+//     })
+//   }
+// })
+
+// Buscador Optimizado
+
+  async function buscar(){
+    let buscar = buscadorInput.value;
+    if (buscadorInput.value == '') {
+      actualizarCatalogo();
+    } else {
+      catalogo.innerHTML = ''
+      let resultados = await tienda.buscarProducto(buscar, categoria)
       resultados.forEach(resultado => {
-      let resRend = renderizar(resultado);
-      catalogo.insertAdjacentHTML("beforeend", resRend);
-      botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
-      })
+        let resRend = renderizar(resultado);
+        catalogo.insertAdjacentHTML("beforeend", resRend);  
+        botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
+        })
       agregarEventListeners();
-    })
+      }
+    }
+  function debounce(func, delay) {
+    let timeout;
+    return function() {
+      clearTimeout(timeout);
+      timeout = setTimeout(func, delay);
+    }
   }
-  console.log(categoria)
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  buscadorInput.addEventListener("keyup", debounce(buscar, 300))
