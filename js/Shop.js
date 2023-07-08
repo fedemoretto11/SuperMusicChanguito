@@ -1,4 +1,4 @@
-// const carrito = document.querySelector(".offset-carrito");
+import { productoBusqueda } from './productos.js';
 
 export class Shop {
   constructor(){
@@ -115,11 +115,17 @@ export class Shop {
 
   // Buscador de producto
 
-  buscarProducto(buscar, productos){ 
-    return productos.filter(producto => {
+  // buscarProducto(buscar, productos){ 
+  //   return productos.filter(producto => {
+  //     const productoBuscar = new RegExp(buscar, 'gi');
+  //     return producto.title.match(productoBuscar);
+  //   })
+  // }
+
+  buscarProducto(buscar,categoria){ 
       const productoBuscar = new RegExp(buscar, 'gi');
-      return producto.title.match(productoBuscar);
-    })
+      const producto = productoBusqueda(productoBuscar,categoria);
+      return producto;
   }
 
 

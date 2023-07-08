@@ -34,7 +34,7 @@ const tienda = new Shop(); // Instanciacion del Shop
 
 
 // Variables categoria y limite para pasar como parametros en funcion de cambiar de categoria y mostrar cantidad de tarjetas por pagina
-let categoria = "MLA417638";
+let categoria = "MLA4275";
 let limite = 10;
 
 // Mostrar catalogo
@@ -246,16 +246,22 @@ botonComprar.addEventListener("click", (e) => {
 
 // Buscador de productos
 buscadorInput.addEventListener("keyup", () => {
+  if (buscadorInput.value == '') {
+    actualizarCatalogo();
+  } else {
   let buscar = buscadorInput.value;
-  let resultados = tienda.buscarProducto(buscar, catalogoProductos);
   catalogo.innerHTML = ''
-  resultados.forEach(resultado => {
-    let resRend = renderizar(resultado);
-    catalogo.insertAdjacentHTML("beforeend", resRend);
-    botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
-
-  })
-  agregarEventListeners();
+  tienda.buscarProducto(buscar,categoria)
+    .then(resultados => {
+      resultados.forEach(resultado => {
+      let resRend = renderizar(resultado);
+      catalogo.insertAdjacentHTML("beforeend", resRend);
+      botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
+      })
+      agregarEventListeners();
+    })
+  }
+  console.log(categoria)
 })
 
 
