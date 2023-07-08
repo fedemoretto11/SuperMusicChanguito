@@ -40,10 +40,6 @@ You can try the shopping cart in action by visiting the following link: [Shoppin
 
 This project is the result of individual work in the JavaScript course, and therefore, external contributions will not be accepted.
 
-## License
-
-This project is distributed under the MIT License. See the `LICENSE` file for more information.
-
 ---
 
 

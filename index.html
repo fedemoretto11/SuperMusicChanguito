@@ -29,7 +29,7 @@
 
   <header>
     <div class="center  container-fluid">
-      <div class="row header-top">
+      <div class="row header-top center">
         <div class="center header-top_titulo col-xl-6">
           <a href=""><img src="./img/logo.webp" alt="Logo Super Music Changuito"></a>
           <h1>Super Music Changuito</h1>
@@ -70,10 +70,8 @@
     <div class="carrito-top">
       <h2>Carrito</h2>
       <div class="carrito-productos center-column">
-        
       </div>
     </div>
-
     <div class="carrito-bottom center row">
       <div class="carrito-bottom_datos center-column col-md-5">
         <p>Productos: <b><span id="cantidad">0</span></b></p>
@@ -86,23 +84,20 @@
     </div>
   </section>
 
-
+  
 
   <main class="center-column main">
-    <section id="catalogo" class="center">
-      
-    </section>
+    
     <section class="paginas center">
-      <button class="paginas-botones" value="10">10</button>
-      <button class="paginas-botones" value="15">15</button>
-      <button class="paginas-botones" value="20">20</button>
+      <label for="items-por-pagina">Items por página:</label>
+      <select id="items-por-pagina">
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+      </select>
     </section>
     
-    <section id="botones-carrito-gral">
-
-      <!-- <button id="boton-carrito">CARRITO</button> -->
-
-      
+    <section id="catalogo" class="center">
       
     </section>
   </main>
@@ -116,7 +111,7 @@
         <p>Curso de JavaScript de CoderHouse</p>
       </div>
       <div class="footer-right col-md-5 center-column">
-        <a href="">Volver arriba ( esto quiere decir subir ir al inicio simio )</a>
+        <a href="">Volver arriba</a>
       </div>
     </div>
   </footer>

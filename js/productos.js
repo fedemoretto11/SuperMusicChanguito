@@ -1,12 +1,9 @@
 // Funcion que obtiene la informacion de la API de MELI
-export async function obtenerProductos(categoria, limite) {
-  try {
-    const result = await fetch(`https://api.mercadolibre.com/sites/MLA/search?category=${categoria}&limit=${limite}`);
-    const productos = await result.json();
-    return productos.results;
-  } catch (error) {
-    console.log(error);
-  }
+export function obtenerProductos(categoria, limite,offset = 0) {
+  return fetch(`https://api.mercadolibre.com/sites/MLA/search?category=${categoria}&limit=${limite}&offset=${offset}`)
+    .then(response => response.json())
+    .then(data => data.results)
+    .catch(error => console.log(error));
 }
 
 
@@ -16,11 +13,11 @@ function card({id,imagen, altImagen, nombre,descripcion,cantidadDisponible, prec
     <div class="catalogo-cards center-column">
       <img src="${imagen}" alt="${altImagen}">
       <h2>${nombre}</h2>
-      <p class="catalogo-cards_descripcion">${descripcion}</p>
-      <p>Stock: ${cantidadDisponible}</p>
-      <p>Precio: ${moneda} ${precio.toLocaleString()}</p>
+      <p class="catalogo-cards_descripcion"><i>${descripcion}</i></p>
+      <!-- <p>Stock: ${cantidadDisponible}</p> -->
+      <p><b>Precio: ${moneda} ${precio.toLocaleString()}</b></p>
       <div class="center catalogo-cards_buttons">
-        <button class="agregarCarrito" value="${id}">Agregar al Carrito</button>
+        <button class="agregarCarrito" value="${id}">Comprar</button>
       </div>
     </div>
     `

@@ -10,7 +10,8 @@ const botonCarrito = document.getElementById("boton-carrito"); // Boton para abr
 const botonBorrarCarrito = document.getElementById("borrar-carrito"); // Borrar TODO el carrito -- CARRITO
 const botonComprar = document.getElementById("comprar"); // Boton Comprar -- CARRITO
 const botonesCategorias = document.querySelectorAll(".nav-button_link"); // Botones para cambiar categoria (guitarra, piano, bateria)
-const botonesPaginas = document.querySelectorAll(".paginas-botones");
+const itemsPorPagina = document.getElementById("items-por-pagina");
+
 
 // Llamdo HTML
 const buscadorInput = document.getElementById("buscador-input_buscar"); // Input texto buscador parte superior
@@ -20,11 +21,9 @@ const carrito = document.getElementById('carrito'); // Carrito, se trae para des
 let carritoProductos = document.querySelector('.carrito-productos'); // Div para insertar productos (Carrito)
 const cantidadCarrito = document.querySelector(".cantidad-carrito"); // Botoncito con cantidades en carrito
 
-const modal = new bootstrap.Modal(document.getElementById("loading-modal"), {
+const modalCarga = new bootstrap.Modal(document.getElementById("loading-modal"), {
   keyboard: false
 })
-// modal.show()
-
 
 
 // Creacion de catalogo
@@ -36,7 +35,7 @@ const tienda = new Shop(); // Instanciacion del Shop
 
 // Variables categoria y limite para pasar como parametros en funcion de cambiar de categoria y mostrar cantidad de tarjetas por pagina
 let categoria = "MLA417638";
-let limite = 8;
+let limite = 10;
 
 // Mostrar catalogo
 let catalogoProductos = await obtenerProductos(categoria,limite); // Asigna a la variable los productos obtenidos a traves de la API de MELI
@@ -55,13 +54,12 @@ function actualizarCatalogo(){
   console.log(catalogoProductos)
 }
 
+
 actualizarCatalogo();
 
 
+
 // console.log(catalogoProductos)
-
-
-
 
 
 
@@ -156,13 +154,6 @@ function agregarEventListenersCarrito() {
   }
 }
 
-// Loader
-function loaderShow(){
-  loadingModal.style.display = 'block'
-}
-function loaderHide(){
-    loadingModal.style.display = 'none'
-}
 
 
 
@@ -192,22 +183,23 @@ botonesCategorias.forEach(boton => {
 
 
 // Mostrar cantidad de tarjetas por pagina
-botonesPaginas.forEach(boton => {
-  boton.addEventListener("click", (e) => {
-    e.preventDefault();
-    limite = boton.value;
-    console.log(limite);
-    console.log(categoria);
 
-    obtenerProductos(categoria, limite)
-      .then(resultado => {
-        catalogoProductos = resultado;
-        actualizarCatalogo();
-        
-      })
+itemsPorPagina.addEventListener("change",() => {
+  console.log(itemsPorPagina.value);
+  limite = itemsPorPagina.value;
+  console.log(limite);
+  console.log(categoria);
+  obtenerProductos(categoria, limite)
+    .then(resultado => {
+      catalogoProductos = resultado;
+      actualizarCatalogo();
+      
+    })
     agregarEventListeners();
-  })
 })
+
+
+
 
 
 // Mostrar carrito
@@ -244,7 +236,8 @@ botonBorrarCarrito.addEventListener("click", (e) => {
 botonComprar.addEventListener("click", (e) => {
   e.preventDefault();
   if (tienda.carrito.length > 0) {
-    tienda.pagar()
+    tienda.pagar();
+    mostrarPantallaCarrito();
   } else {
     console.log("Carrito Vacio")
   }
