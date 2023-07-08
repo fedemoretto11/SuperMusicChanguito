@@ -49,7 +49,7 @@ function actualizarCatalogo(){
     catalogo.insertAdjacentHTML("beforeend", productoCatalogo);
   });
   botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
-  agregarEventListeners();
+  agregarEventListeners(catalogoProductos);
   cantidadProductoCarrito()
   console.log(catalogoProductos)
   
@@ -107,11 +107,11 @@ function cantidadProductoCarrito(){
 }
 
 //Eventos de botones de tarjetas
-function agregarEventListeners(){
+function agregarEventListeners(productos){
   // Agregar al carrito
   botonAgregarCarrito.forEach(boton => {
     boton.addEventListener("click", () => {
-      let producto = catalogoProductos.find(producto => producto.id == boton.value);
+      let producto = productos.find(producto => producto.id == boton.value);
       tienda.agregarAlCarrito(producto);
       cantidadProductoCarrito()
       actualizarCatalogo();
@@ -273,12 +273,12 @@ botonComprar.addEventListener("click", (e) => {
     } else {
       catalogo.innerHTML = ''
       let resultados = await tienda.buscarProducto(buscar, categoria)
-      resultados.forEach(resultado => {
+      for (let resultado of resultados) {
         let resRend = renderizar(resultado);
         catalogo.insertAdjacentHTML("beforeend", resRend);  
-        botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
-        })
-      agregarEventListeners();
+        botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton   
+      }
+      agregarEventListeners(resultados);
       }
     }
   function debounce(func, delay) {
