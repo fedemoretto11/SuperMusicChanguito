@@ -129,7 +129,11 @@ header {
   font-size: 20px;
   transition: 0.3s;
 }
-.nav li:hover a {
+.nav li:hover .menu {
+  color: #FF8000;
+}
+
+.dropdown-item:hover {
   color: #FF8000;
 }
 
@@ -209,7 +213,7 @@ header {
   background-color: #03258C;
 }
 
-.paginas {
+.itemsPaginas {
   width: 60%;
   margin: 20px;
   justify-content: flex-end;
@@ -218,13 +222,30 @@ header {
   font-size: 18px;
 }
 
-.paginas > :first-child {
+.itemsPaginas > :first-child {
   margin-right: 6px;
 }
 
-.paginas > :last-child {
+.itemsPaginas > :last-child {
   border-radius: 0px 10px 10px 0px;
   border-left: none;
+}
+
+.pagina-btn {
+  width: 40px;
+  color: #022859;
+  font-family: "Poppins", sans-serif;
+  background-color: #B6C5F2;
+  padding: 6px;
+  font-size: 15px;
+  padding: 6px;
+  border: 1.5px solid #022859;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+.pagina-btn:hover {
+  color: #FF8000;
+  background-color: #03258C;
 }
 
 #carrito {
@@ -380,6 +401,9 @@ header {
 }
 
 @media screen and (max-width: 1200px) {
+  #pagina {
+    padding-top: 40px;
+  }
   .main {
     padding-top: 270px;
   }

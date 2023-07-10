@@ -2,7 +2,10 @@
 export function obtenerProductos(categoria, limite,offset = 0) {
   return fetch(`https://api.mercadolibre.com/sites/MLA/search?category=${categoria}&limit=${limite}&offset=${offset}`)
     .then(response => response.json())
-    .then(data => data.results)
+    .then(data => {
+      const resultadosFiltrados = data.results.filter(result => result.condition === 'new');
+      return resultadosFiltrados;
+    })
     .catch(error => console.log(error));
 }
 

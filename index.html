@@ -46,14 +46,29 @@
 
     <nav>
       <ul class="center nav">
-        <li class="nav-button">
-          <a class="nav-button_link active" data-category="MLA4275" href="">Guitarras</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle menu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Guitarras
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item nav-button_link"  data-category="MLA2989" href="#">Criollas</a></li>
+            <li><a class="dropdown-item nav-button_link"  data-category="MLA4274" href="#">Acusticas</a></li>
+            <li><a class="dropdown-item nav-button_link"  data-category="MLA4275" href="#">Electricas</a></li>
+          </ul>
         </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle menu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Pianos
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item nav-button_link"  data-category="MLA3022" href="#">Pianos de Cola y Verticales</a></li>
+            <li><a class="dropdown-item nav-button_link"  data-category="MLA26960" href="#">Pianos Digitales</a></li>
+          </ul>
+        </li>
+
         <li class="nav-button">
-          <a class="nav-button_link" data-category="MLA26960" href="">Pianos</a>
-        </li> 
-        <li class="nav-button">
-          <a class="nav-button_link" data-category="MLA416667" href="">Baterias</a>
+          <a class="nav-button_link menu" data-category="MLA416667" href="">Baterias</a>
         </li>
         <li>
           <a id="boton-carrito" href="">
@@ -88,18 +103,31 @@
 
   <main class="center-column main">
     
-    <section class="paginas center">
+    <section class="itemsPaginas center">
       <label for="items-por-pagina">Items por página:</label>
       <select id="items-por-pagina">
-          <option value="10">10</option>
-          <option value="15">15</option>
-          <option value="20">20</option>
+          <option value="8">8</option>
+          <option value="16">16</option>
+          <option value="24">24</option>
       </select>
     </section>
     
     <section id="catalogo" class="center">
       
     </section>
+
+    <section id="pagina">
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group me-2" role="group" aria-label="First group">
+          <button type="button" class="btn pagina-btn" value="1">1</button>
+          <button type="button" class="btn pagina-btn" value="2">2</button>
+          <button type="button" class="btn pagina-btn" value="3">3</button>
+          <button type="button" class="btn pagina-btn" value="4">4</button>
+          <button type="button" class="btn pagina-btn" value="5">5</button>
+        </div>
+      </div>
+    </section>
+
   </main>
 
 
@@ -116,6 +144,7 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script type="module" src="./js/script.js"></script>
 </body>

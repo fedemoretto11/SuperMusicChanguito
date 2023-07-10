@@ -11,6 +11,7 @@ const botonBorrarCarrito = document.getElementById("borrar-carrito"); // Borrar 
 const botonComprar = document.getElementById("comprar"); // Boton Comprar -- CARRITO
 const botonesCategorias = document.querySelectorAll(".nav-button_link"); // Botones para cambiar categoria (guitarra, piano, bateria)
 const itemsPorPagina = document.getElementById("items-por-pagina");
+const botonesPaginas = document.querySelectorAll(".pagina-btn")
 
 
 // Llamdo HTML
@@ -35,8 +36,8 @@ const tienda = new Shop(); // Instanciacion del Shop
 
 // Variables categoria y limite para pasar como parametros en funcion de cambiar de categoria y mostrar cantidad de tarjetas por pagina
 let categoria = "MLA4275";
-let limite = 10;
-
+let limite = itemsPorPagina.value;
+let offset = 0;
 // Mostrar catalogo
 let catalogoProductos = await obtenerProductos(categoria,limite); // Asigna a la variable los productos obtenidos a traves de la API de MELI
 
@@ -52,6 +53,9 @@ function actualizarCatalogo(){
   agregarEventListeners(catalogoProductos);
   cantidadProductoCarrito()
   console.log(catalogoProductos)
+  console.log(tienda.carrito)
+
+
   
 }
 
@@ -166,9 +170,9 @@ botonesCategorias.forEach(boton => {
   boton.addEventListener("click", (e) => {
     e.preventDefault();
     botonesCategorias.forEach(button => {
-      button.classList.remove("active");
+      // button.classList.remove("active");
     })
-    boton.classList.add("active")
+    // boton.classList.add("active")
 
     categoria = boton.dataset.category;
     obtenerProductos(categoria, limite)
@@ -274,6 +278,7 @@ botonComprar.addEventListener("click", (e) => {
       catalogo.innerHTML = ''
       let resultados = await tienda.buscarProducto(buscar, categoria)
       for (let resultado of resultados) {
+        console.log(resultado.condition)
         let resRend = renderizar(resultado);
         catalogo.insertAdjacentHTML("beforeend", resRend);  
         botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton   
@@ -289,3 +294,18 @@ botonComprar.addEventListener("click", (e) => {
     }
   }
   buscadorInput.addEventListener("keyup", debounce(buscar, 300))
+
+
+  // Muestra las paginas
+  botonesPaginas.forEach(boton => {
+    boton.addEventListener("click", (e) =>{
+      e.preventDefault();
+      offset = boton.value == 1 ? 0 : limite * (boton.value - 1);
+      obtenerProductos(categoria, limite,offset)
+        .then(resultado => {
+          catalogoProductos = resultado;
+          actualizarCatalogo();
+      })
+    agregarEventListeners();
+    })
+  })
