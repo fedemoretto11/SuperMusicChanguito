@@ -53,10 +53,6 @@ function actualizarCatalogo(){
   agregarEventListeners(catalogoProductos);
   cantidadProductoCarrito()
   console.log(catalogoProductos)
-  console.log(tienda.carrito)
-
-
-  
 }
 
 
@@ -116,6 +112,7 @@ function agregarEventListeners(productos){
   botonAgregarCarrito.forEach(boton => {
     boton.addEventListener("click", () => {
       let producto = productos.find(producto => producto.id == boton.value);
+
       tienda.agregarAlCarrito(producto);
       cantidadProductoCarrito()
       actualizarCatalogo();
@@ -175,6 +172,8 @@ botonesCategorias.forEach(boton => {
     // boton.classList.add("active")
 
     categoria = boton.dataset.category;
+    document.querySelector(".aside").style.backgroundImage = `url(../img/fondoAside/${categoria}.webp)`
+
     obtenerProductos(categoria, limite)
       .then(resultado => {
         catalogoProductos = resultado;
@@ -202,10 +201,6 @@ itemsPorPagina.addEventListener("change",() => {
     agregarEventListeners();
 })
 
-
-
-
-
 // Mostrar carrito
 botonCarrito.addEventListener("click", (e) => {
   e.preventDefault();
@@ -217,6 +212,7 @@ botonCarrito.addEventListener("click", (e) => {
     carrito.style.right = "0px";
     carrito.classList.add("offset-active");
     botonCarrito.style.color = '#FF8000'
+    console.log(tienda.carrito)
   }
 })
 

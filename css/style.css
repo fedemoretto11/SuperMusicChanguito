@@ -152,6 +152,19 @@ header {
   transform: translate(-5px, -3px);
 }
 
+.aside {
+  width: 500px;
+  left: 0px;
+  height: 100vh;
+  margin: 15px;
+  background-color: #B6C5F2;
+  margin: 0;
+  background-image: url(../img/fondoAside/MLA4275.webp);
+  background-size: cover;
+  background-position: center;
+  filter: blur(1.2px);
+}
+
 .main {
   background-color: #B6C5F2;
   padding-top: 190px;
@@ -159,11 +172,16 @@ header {
   padding-bottom: 16px;
 }
 
+.main-catalogo {
+  min-height: 100vh;
+  width: 100vw;
+}
+
 #catalogo {
   flex-wrap: wrap;
-  min-height: 100vh;
-  width: 85%;
+  width: 75%;
   align-items: flex-start;
+  padding-right: 160px;
 }
 
 .catalogo-cards {
@@ -409,6 +427,7 @@ header {
   }
   #catalogo {
     width: 90%;
+    padding-right: 0;
   }
   #carrito {
     margin-top: 188px;
@@ -417,6 +436,12 @@ header {
   }
   .header-top_buscador {
     width: 600px;
+  }
+  .itemsPaginas {
+    justify-content: center;
+  }
+  .aside {
+    display: none;
   }
 }
 @media screen and (max-width: 460px) {
