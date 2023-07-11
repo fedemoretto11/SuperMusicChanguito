@@ -172,7 +172,7 @@ botonesCategorias.forEach(boton => {
     // boton.classList.add("active")
 
     categoria = boton.dataset.category;
-    document.querySelector(".aside").style.backgroundImage = `url(../img/fondoAside/${categoria}.webp)`
+    document.querySelector(".aside").style.backgroundImage = `url(./img/fondoAside/${categoria}.webp)`
 
     obtenerProductos(categoria, limite)
       .then(resultado => {
