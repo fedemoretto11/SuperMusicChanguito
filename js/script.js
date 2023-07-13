@@ -22,9 +22,7 @@ const carrito = document.getElementById('carrito'); // Carrito, se trae para des
 let carritoProductos = document.querySelector('.carrito-productos'); // Div para insertar productos (Carrito)
 const cantidadCarrito = document.querySelector(".cantidad-carrito"); // Botoncito con cantidades en carrito
 
-const modalCarga = new bootstrap.Modal(document.getElementById("loading-modal"), {
-  keyboard: false
-})
+
 
 
 // Creacion de catalogo
@@ -38,25 +36,30 @@ const tienda = new Shop(); // Instanciacion del Shop
 let categoria = "MLA4275";
 let limite = itemsPorPagina.value;
 let offset = 0;
+
 // Mostrar catalogo
 let catalogoProductos = await obtenerProductos(categoria,limite); // Asigna a la variable los productos obtenidos a traves de la API de MELI
 
 
 // Esta funcion actualiza el Catalogo mostrado en pantalla
 function actualizarCatalogo(){
+  loader();
   catalogo.innerHTML = "";
   catalogoProductos.forEach(producto => {
     let productoCatalogo = renderizar(producto);
+    
     catalogo.insertAdjacentHTML("beforeend", productoCatalogo);
+    document.querySelector(".aside-imagen").src = `./img/fondoAside/${categoria}.webp`;
   });
   botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
   agregarEventListeners(catalogoProductos);
   cantidadProductoCarrito()
   console.log(catalogoProductos)
+
 }
 
-
 actualizarCatalogo();
+
 
 
 
@@ -115,10 +118,10 @@ function agregarEventListeners(productos){
 
       tienda.agregarAlCarrito(producto);
       cantidadProductoCarrito()
-      actualizarCatalogo();
+      // actualizarCatalogo();
+      mostrarPantallaCarrito();
       actualizarPrecioCantidad();
     })
-    mostrarPantallaCarrito();
   })
 }
 //Eventos de botones de tarjetas de carrito
@@ -155,6 +158,17 @@ function agregarEventListenersCarrito() {
   }
 }
 
+function loader() {
+  Swal.fire({
+    title: "Cargando",
+    html: "Buscando productos...",
+    timer: 1000,
+    timerProgressBar: true,
+    didOpen: () => {
+      Swal.showLoading();
+    },
+  });
+}
 
 
 
@@ -172,7 +186,7 @@ botonesCategorias.forEach(boton => {
     // boton.classList.add("active")
 
     categoria = boton.dataset.category;
-    document.querySelector(".aside-imagen").src = `./img/fondoAside/${categoria}.webp`;
+
     obtenerProductos(categoria, limite)
       .then(resultado => {
         catalogoProductos = resultado;
@@ -243,26 +257,6 @@ botonComprar.addEventListener("click", (e) => {
 })
 
 
-// Buscador de productos
-
-// buscadorInput.addEventListener("keyup", () => {
-//   if (buscadorInput.value == '') {
-//     actualizarCatalogo();
-//   } else {
-//   let buscar = buscadorInput.value;
-//   catalogo.innerHTML = ''
-//   tienda.buscarProducto(buscar, categoria)
-//     .then(resultados => {
-//       resultados.forEach(resultado => {
-//       let resRend = renderizar(resultado);
-//       catalogo.insertAdjacentHTML("beforeend", resRend);  
-//       botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton    
-//     })
-//     agregarEventListeners();
-//     })
-//   }
-// })
-
 // Buscador Optimizado
 
   async function buscar(){
@@ -277,7 +271,6 @@ botonComprar.addEventListener("click", (e) => {
         let resRend = renderizar(resultado);
         catalogo.insertAdjacentHTML("beforeend", resRend);  
         botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton   
-        document.querySelector(".aside-imagen").src = `./img/fondoAside/${categoria}.webp`;
       }
       agregarEventListeners(resultados);
       }

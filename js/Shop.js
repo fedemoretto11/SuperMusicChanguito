@@ -21,9 +21,11 @@ export class Shop {
     // Cheque si existe en carrito
     if (this.carrito.includes(productoCarrito)) {
       console.log("El producto ya existe en el carrito")
-      alert("El producto ya ha sido ingresado.\nPara comprar más agregue desde la sección carrito")
-
-
+      Swal.fire({
+        icon: 'warning',
+        title: 'El producto ya se encuentra en el carrito',
+        confirmButtonColor: "#03258C"
+      })
     // Chequea si el producto tiene stock
     } else if (productoNuevo.installments.quantity <= 0) {
       console.log("Producto sin stock")
@@ -39,6 +41,11 @@ export class Shop {
       localStorage.setItem("carrito", JSON.stringify(this.carrito));
       // console.log(productoNuevo.subtotal)
       // console.log(productoNuevo.cantidad)
+      Swal.fire({
+        icon: 'success',
+        title: 'Producto agregado correctamente',
+        confirmButtonColor: "#03258C"
+      })
     }
   }
 
@@ -84,6 +91,12 @@ export class Shop {
         console.log("Producto eliminado del carrito");
         let indice = this.carrito.indexOf(productoNuevo);
         this.carrito.splice(indice,1);
+        Swal.fire({
+          icon: 'error',
+          title: 'Producto eliminado del carrito',
+          confirmButtonColor: "#03258C"
+        })
+
       }
       localStorage.setItem("carrito", JSON.stringify(this.carrito));
     } else {
@@ -104,6 +117,11 @@ export class Shop {
       this.calculoCantidad()
       this.calculoPrecioSubtotal()
       console.log(`El producto ${nombre} ha sido eliminado correctamente`)
+      Swal.fire({
+        icon: 'error',
+        title: 'Producto eliminado del carrito',
+        confirmButtonColor: "#03258C"
+      })
       localStorage.setItem("carrito", JSON.stringify(this.carrito));
     } else {
       console.log("El producto no se encuentra en el carrito")
@@ -136,6 +154,11 @@ export class Shop {
     this.precioSubtotal = 0;
     this.cantidadProductos = 0;
     localStorage.setItem("carrito", JSON.stringify(this.carrito));
+    Swal.fire({
+      icon: 'error',
+      title: 'Carrito vaciado',
+      confirmButtonColor: "#03258C"
+    })
   }
 
 
