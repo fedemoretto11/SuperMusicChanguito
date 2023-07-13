@@ -172,8 +172,7 @@ botonesCategorias.forEach(boton => {
     // boton.classList.add("active")
 
     categoria = boton.dataset.category;
-    document.querySelector(".aside").style.backgroundImage = `url(./img/fondoAside/${categoria}.webp)`
-
+    document.querySelector(".aside-imagen").src = `./img/fondoAside/${categoria}.webp`;
     obtenerProductos(categoria, limite)
       .then(resultado => {
         catalogoProductos = resultado;
@@ -278,6 +277,7 @@ botonComprar.addEventListener("click", (e) => {
         let resRend = renderizar(resultado);
         catalogo.insertAdjacentHTML("beforeend", resRend);  
         botonAgregarCarrito = document.querySelectorAll(".agregarCarrito"); // Asignacion de boton   
+        document.querySelector(".aside-imagen").src = `./img/fondoAside/${categoria}.webp`;
       }
       agregarEventListeners(resultados);
       }

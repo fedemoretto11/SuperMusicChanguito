@@ -153,16 +153,26 @@ header {
 }
 
 .aside {
+  position: relative;
   width: 500px;
+  height: 100%;
   left: 0px;
-  height: 100vh;
+  top: 0px;
   margin: 15px;
   background-color: #B6C5F2;
   margin: 0;
-  background-image: url(../img/fondoAside/MLA4275.webp);
   background-size: cover;
   background-position: center;
   filter: blur(1.2px);
+}
+.aside img {
+  position: relative;
+  left: 0px;
+  top: 0px;
+  height: 950px;
+  width: 500px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .main {
@@ -175,6 +185,7 @@ header {
 .main-catalogo {
   min-height: 100vh;
   width: 100vw;
+  align-items: flex-start;
 }
 
 #catalogo {
@@ -449,7 +460,7 @@ header {
     font-size: 22px !important;
   }
   .main {
-    padding-top: 180px;
+    padding-top: 230px;
   }
   #carrito {
     margin-top: 179px;

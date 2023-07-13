@@ -19,7 +19,7 @@ export class Shop {
   agregarAlCarrito(productoNuevo) {
     let productoCarrito = this.carrito.find(producto => producto.id == productoNuevo.id);
     // Cheque si existe en carrito
-    if (this.carrito.includes(productoNuevo)) {
+    if (this.carrito.includes(productoCarrito)) {
       console.log("El producto ya existe en el carrito")
       alert("El producto ya ha sido ingresado.\nPara comprar más agregue desde la sección carrito")
 
