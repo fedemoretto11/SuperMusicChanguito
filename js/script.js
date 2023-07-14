@@ -118,10 +118,10 @@ function agregarEventListeners(productos){
 
       tienda.agregarAlCarrito(producto);
       cantidadProductoCarrito()
-      // actualizarCatalogo();
-      mostrarPantallaCarrito();
+      actualizarCatalogo();
       actualizarPrecioCantidad();
     })
+    mostrarPantallaCarrito();
   })
 }
 //Eventos de botones de tarjetas de carrito
@@ -162,7 +162,7 @@ function loader() {
   Swal.fire({
     title: "Cargando",
     html: "Buscando productos...",
-    timer: 1000,
+    timer: 500,
     timerProgressBar: true,
     didOpen: () => {
       Swal.showLoading();
